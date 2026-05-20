@@ -1,0 +1,4898 @@
+[
+  {
+    "parquetFile": "AQREAN_Cells__EPSG_4326.parquet",
+    "renderer": null
+  },
+  {
+    "parquetFile": "AQREAN_BC_Cells.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.1,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                78,
+                78,
+                78,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                213,
+                179,
+                252,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "AQREAN_Cells.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.1,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                78,
+                78,
+                78,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                252,
+                196,
+                179,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "Carbon_Cells.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.1,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                110,
+                110,
+                110,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                252,
+                245,
+                201,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "DEFRA_N_END_Noise_MappingAgglomerations_EN_R3.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                178,
+                178,
+                178,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                226,
+                202,
+                232,
+                255
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "DEFRA_N_Rail_Noise_LAeq16h_EN_R3.parquet",
+    "renderer": {
+      "authoringInfo": {
+        "colorRamp": {
+          "type": "multipart",
+          "colorRamps": [
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                255,
+                204,
+                255
+              ],
+              "toColor": [
+                255,
+                238,
+                161,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                238,
+                161,
+                255
+              ],
+              "toColor": [
+                255,
+                218,
+                117,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                218,
+                117,
+                255
+              ],
+              "toColor": [
+                255,
+                178,
+                77,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                178,
+                77,
+                255
+              ],
+              "toColor": [
+                252,
+                141,
+                61,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                141,
+                61,
+                255
+              ],
+              "toColor": [
+                252,
+                78,
+                43,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                78,
+                43,
+                255
+              ],
+              "toColor": [
+                227,
+                25,
+                28,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                227,
+                25,
+                28,
+                255
+              ],
+              "toColor": [
+                189,
+                0,
+                38,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                189,
+                0,
+                38,
+                255
+              ],
+              "toColor": [
+                128,
+                0,
+                38,
+                255
+              ]
+            }
+          ]
+        }
+      },
+      "type": "uniqueValue",
+      "field1": "noiseclass",
+      "defaultLabel": "",
+      "defaultSymbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                110,
+                110,
+                110,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                130,
+                130,
+                130,
+                255
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      },
+      "fieldDelimiter": ",",
+      "uniqueValueGroups": [
+        {
+          "heading": "",
+          "classes": [
+            {
+              "description": "55.0-59.9",
+              "label": "55.0-59.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        254,
+                        217,
+                        118,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "55.0-59.9"
+                ]
+              ]
+            },
+            {
+              "description": "60.0-64.9",
+              "label": "60.0-64.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        253,
+                        141,
+                        60,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "60.0-64.9"
+                ]
+              ]
+            },
+            {
+              "description": "65.0-69.9",
+              "label": "65.0-69.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        227,
+                        26,
+                        28,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "65.0-69.9"
+                ]
+              ]
+            },
+            {
+              "description": "70.0-74.9",
+              "label": "70.0-74.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        128,
+                        0,
+                        38,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "70.0-74.9"
+                ]
+              ]
+            },
+            {
+              "description": "=75.0",
+              "label": ">=75.0",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        62,
+                        0,
+                        0,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  ">=75.0"
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "uniqueValueInfos": [
+        {
+          "description": "55.0-59.9",
+          "label": "55.0-59.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    254,
+                    217,
+                    118,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "55.0-59.9"
+        },
+        {
+          "description": "60.0-64.9",
+          "label": "60.0-64.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    253,
+                    141,
+                    60,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "60.0-64.9"
+        },
+        {
+          "description": "65.0-69.9",
+          "label": "65.0-69.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    227,
+                    26,
+                    28,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "65.0-69.9"
+        },
+        {
+          "description": "70.0-74.9",
+          "label": "70.0-74.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    128,
+                    0,
+                    38,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "70.0-74.9"
+        },
+        {
+          "description": "=75.0",
+          "label": ">=75.0",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    62,
+                    0,
+                    0,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": ">=75.0"
+        }
+      ]
+    }
+  },
+  {
+    "parquetFile": "DEFRA_N_Rail_Noise_Lden_EN_R3.parquet",
+    "renderer": {
+      "authoringInfo": {
+        "colorRamp": {
+          "type": "multipart",
+          "colorRamps": [
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                215,
+                184,
+                255
+              ],
+              "toColor": [
+                252,
+                215,
+                184,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                198,
+                182,
+                252,
+                255
+              ],
+              "toColor": [
+                198,
+                182,
+                252,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                182,
+                239,
+                252,
+                255
+              ],
+              "toColor": [
+                182,
+                239,
+                252,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                192,
+                252,
+                184,
+                255
+              ],
+              "toColor": [
+                192,
+                252,
+                184,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                192,
+                219,
+                255
+              ],
+              "toColor": [
+                252,
+                192,
+                219,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                252,
+                179,
+                255
+              ],
+              "toColor": [
+                252,
+                252,
+                179,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                184,
+                252,
+                223,
+                255
+              ],
+              "toColor": [
+                184,
+                252,
+                223,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                221,
+                210,
+                252,
+                255
+              ],
+              "toColor": [
+                221,
+                210,
+                252,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                249,
+                187,
+                252,
+                255
+              ],
+              "toColor": [
+                249,
+                187,
+                252,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                252,
+                215,
+                255
+              ],
+              "toColor": [
+                252,
+                252,
+                215,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                216,
+                215,
+                255
+              ],
+              "toColor": [
+                252,
+                216,
+                215,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                212,
+                232,
+                252,
+                255
+              ],
+              "toColor": [
+                212,
+                232,
+                252,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                212,
+                252,
+                243,
+                255
+              ],
+              "toColor": [
+                212,
+                252,
+                243,
+                255
+              ]
+            }
+          ]
+        }
+      },
+      "type": "uniqueValue",
+      "field1": "noiseclass",
+      "defaultLabel": "",
+      "defaultSymbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                110,
+                110,
+                110,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                130,
+                130,
+                130,
+                255
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      },
+      "fieldDelimiter": ",",
+      "uniqueValueGroups": [
+        {
+          "heading": "",
+          "classes": [
+            {
+              "description": "55.0-59.9",
+              "label": "55.0-59.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        254,
+                        217,
+                        118,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "55.0-59.9"
+                ]
+              ]
+            },
+            {
+              "description": "60.0-64.9",
+              "label": "60.0-64.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        253,
+                        141,
+                        60,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "60.0-64.9"
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "uniqueValueInfos": [
+        {
+          "description": "55.0-59.9",
+          "label": "55.0-59.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    254,
+                    217,
+                    118,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "55.0-59.9"
+        },
+        {
+          "description": "60.0-64.9",
+          "label": "60.0-64.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    253,
+                    141,
+                    60,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "60.0-64.9"
+        }
+      ]
+    }
+  },
+  {
+    "parquetFile": "DEFRA_N_Rail_Noise_Lnight_EN_R3.parquet",
+    "renderer": {
+      "authoringInfo": {
+        "colorRamp": {
+          "type": "multipart",
+          "colorRamps": [
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                255,
+                204,
+                255
+              ],
+              "toColor": [
+                255,
+                238,
+                161,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                238,
+                161,
+                255
+              ],
+              "toColor": [
+                255,
+                218,
+                117,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                218,
+                117,
+                255
+              ],
+              "toColor": [
+                255,
+                178,
+                77,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                178,
+                77,
+                255
+              ],
+              "toColor": [
+                252,
+                141,
+                61,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                141,
+                61,
+                255
+              ],
+              "toColor": [
+                252,
+                78,
+                43,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                78,
+                43,
+                255
+              ],
+              "toColor": [
+                227,
+                25,
+                28,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                227,
+                25,
+                28,
+                255
+              ],
+              "toColor": [
+                189,
+                0,
+                38,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                189,
+                0,
+                38,
+                255
+              ],
+              "toColor": [
+                128,
+                0,
+                38,
+                255
+              ]
+            }
+          ]
+        }
+      },
+      "type": "uniqueValue",
+      "field1": "noiseclass",
+      "defaultLabel": "",
+      "defaultSymbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                110,
+                110,
+                110,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                130,
+                130,
+                130,
+                255
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      },
+      "fieldDelimiter": ",",
+      "uniqueValueGroups": [
+        {
+          "heading": "",
+          "classes": [
+            {
+              "description": "50.0-54.9",
+              "label": "50.0-54.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        255,
+                        255,
+                        204,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "50.0-54.9"
+                ]
+              ]
+            },
+            {
+              "description": "55.0-59.9",
+              "label": "55.0-59.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        254,
+                        217,
+                        118,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "55.0-59.9"
+                ]
+              ]
+            },
+            {
+              "description": "60.0-64.9",
+              "label": "60.0-64.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        253,
+                        141,
+                        60,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "60.0-64.9"
+                ]
+              ]
+            },
+            {
+              "description": "65.0-69.9",
+              "label": "65.0-69.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        227,
+                        26,
+                        28,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "65.0-69.9"
+                ]
+              ]
+            },
+            {
+              "description": "=70.0",
+              "label": ">=70.0",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        128,
+                        0,
+                        38,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  ">=70.0"
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "uniqueValueInfos": [
+        {
+          "description": "50.0-54.9",
+          "label": "50.0-54.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    255,
+                    255,
+                    204,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "50.0-54.9"
+        },
+        {
+          "description": "55.0-59.9",
+          "label": "55.0-59.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    254,
+                    217,
+                    118,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "55.0-59.9"
+        },
+        {
+          "description": "60.0-64.9",
+          "label": "60.0-64.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    253,
+                    141,
+                    60,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "60.0-64.9"
+        },
+        {
+          "description": "65.0-69.9",
+          "label": "65.0-69.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    227,
+                    26,
+                    28,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "65.0-69.9"
+        },
+        {
+          "description": "=70.0",
+          "label": ">=70.0",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    128,
+                    0,
+                    38,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": ">=70.0"
+        }
+      ]
+    }
+  },
+  {
+    "parquetFile": "DEFRA_N_Road_Noise_LAeq16h_EN_R3.parquet",
+    "renderer": {
+      "authoringInfo": {
+        "colorRamp": {
+          "type": "multipart",
+          "colorRamps": [
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                255,
+                204,
+                255
+              ],
+              "toColor": [
+                255,
+                238,
+                161,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                238,
+                161,
+                255
+              ],
+              "toColor": [
+                255,
+                218,
+                117,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                218,
+                117,
+                255
+              ],
+              "toColor": [
+                255,
+                178,
+                77,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                178,
+                77,
+                255
+              ],
+              "toColor": [
+                252,
+                141,
+                61,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                141,
+                61,
+                255
+              ],
+              "toColor": [
+                252,
+                78,
+                43,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                78,
+                43,
+                255
+              ],
+              "toColor": [
+                227,
+                25,
+                28,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                227,
+                25,
+                28,
+                255
+              ],
+              "toColor": [
+                189,
+                0,
+                38,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                189,
+                0,
+                38,
+                255
+              ],
+              "toColor": [
+                128,
+                0,
+                38,
+                255
+              ]
+            }
+          ]
+        }
+      },
+      "type": "uniqueValue",
+      "field1": "noiseclass",
+      "defaultLabel": "",
+      "defaultSymbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                110,
+                110,
+                110,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                130,
+                130,
+                130,
+                255
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      },
+      "fieldDelimiter": ",",
+      "uniqueValueGroups": [
+        {
+          "heading": "",
+          "classes": [
+            {
+              "description": "55.0-59.9",
+              "label": "55.0-59.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        254,
+                        217,
+                        118,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "55.0-59.9"
+                ]
+              ]
+            },
+            {
+              "description": "60.0-64.9",
+              "label": "60.0-64.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        253,
+                        141,
+                        60,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "60.0-64.9"
+                ]
+              ]
+            },
+            {
+              "description": "65.0-69.9",
+              "label": "65.0-69.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        227,
+                        26,
+                        28,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "65.0-69.9"
+                ]
+              ]
+            },
+            {
+              "description": "70.0-74.9",
+              "label": "70.0-74.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        128,
+                        0,
+                        38,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "70.0-74.9"
+                ]
+              ]
+            },
+            {
+              "description": "=75.0",
+              "label": ">=75.0",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        62,
+                        0,
+                        0,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  ">=75.0"
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "uniqueValueInfos": [
+        {
+          "description": "55.0-59.9",
+          "label": "55.0-59.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    254,
+                    217,
+                    118,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "55.0-59.9"
+        },
+        {
+          "description": "60.0-64.9",
+          "label": "60.0-64.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    253,
+                    141,
+                    60,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "60.0-64.9"
+        },
+        {
+          "description": "65.0-69.9",
+          "label": "65.0-69.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    227,
+                    26,
+                    28,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "65.0-69.9"
+        },
+        {
+          "description": "70.0-74.9",
+          "label": "70.0-74.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    128,
+                    0,
+                    38,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "70.0-74.9"
+        },
+        {
+          "description": "=75.0",
+          "label": ">=75.0",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    62,
+                    0,
+                    0,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": ">=75.0"
+        }
+      ]
+    }
+  },
+  {
+    "parquetFile": "DEFRA_N_Road_Noise_Lden_EN_R3.parquet",
+    "renderer": {
+      "authoringInfo": {
+        "colorRamp": {
+          "type": "multipart",
+          "colorRamps": [
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                255,
+                204,
+                255
+              ],
+              "toColor": [
+                255,
+                238,
+                161,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                238,
+                161,
+                255
+              ],
+              "toColor": [
+                255,
+                218,
+                117,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                218,
+                117,
+                255
+              ],
+              "toColor": [
+                255,
+                178,
+                77,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                178,
+                77,
+                255
+              ],
+              "toColor": [
+                252,
+                141,
+                61,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                141,
+                61,
+                255
+              ],
+              "toColor": [
+                252,
+                78,
+                43,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                78,
+                43,
+                255
+              ],
+              "toColor": [
+                227,
+                25,
+                28,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                227,
+                25,
+                28,
+                255
+              ],
+              "toColor": [
+                189,
+                0,
+                38,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                189,
+                0,
+                38,
+                255
+              ],
+              "toColor": [
+                128,
+                0,
+                38,
+                255
+              ]
+            }
+          ]
+        }
+      },
+      "type": "uniqueValue",
+      "field1": "noiseclass",
+      "defaultLabel": "",
+      "defaultSymbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                110,
+                110,
+                110,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                130,
+                130,
+                130,
+                255
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      },
+      "fieldDelimiter": ",",
+      "uniqueValueGroups": [
+        {
+          "heading": "",
+          "classes": [
+            {
+              "description": "55.0-59.9",
+              "label": "55.0-59.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        254,
+                        217,
+                        118,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "55.0-59.9"
+                ]
+              ]
+            },
+            {
+              "description": "60.0-64.9",
+              "label": "60.0-64.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        253,
+                        141,
+                        60,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "60.0-64.9"
+                ]
+              ]
+            },
+            {
+              "description": "65.0-69.9",
+              "label": "65.0-69.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        227,
+                        26,
+                        28,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "65.0-69.9"
+                ]
+              ]
+            },
+            {
+              "description": "70.0-74.9",
+              "label": "70.0-74.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        128,
+                        0,
+                        38,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "70.0-74.9"
+                ]
+              ]
+            },
+            {
+              "description": "=75.0",
+              "label": ">=75.0",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        62,
+                        0,
+                        0,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  ">=75.0"
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "uniqueValueInfos": [
+        {
+          "description": "55.0-59.9",
+          "label": "55.0-59.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    254,
+                    217,
+                    118,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "55.0-59.9"
+        },
+        {
+          "description": "60.0-64.9",
+          "label": "60.0-64.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    253,
+                    141,
+                    60,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "60.0-64.9"
+        },
+        {
+          "description": "65.0-69.9",
+          "label": "65.0-69.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    227,
+                    26,
+                    28,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "65.0-69.9"
+        },
+        {
+          "description": "70.0-74.9",
+          "label": "70.0-74.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    128,
+                    0,
+                    38,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "70.0-74.9"
+        },
+        {
+          "description": "=75.0",
+          "label": ">=75.0",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    62,
+                    0,
+                    0,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": ">=75.0"
+        }
+      ]
+    }
+  },
+  {
+    "parquetFile": "DEFRA_N_Road_Noise_Lnight_EN_R3.parquet",
+    "renderer": {
+      "authoringInfo": {
+        "colorRamp": {
+          "type": "multipart",
+          "colorRamps": [
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                255,
+                204,
+                255
+              ],
+              "toColor": [
+                255,
+                238,
+                161,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                238,
+                161,
+                255
+              ],
+              "toColor": [
+                255,
+                218,
+                117,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                218,
+                117,
+                255
+              ],
+              "toColor": [
+                255,
+                178,
+                77,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                255,
+                178,
+                77,
+                255
+              ],
+              "toColor": [
+                252,
+                141,
+                61,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                141,
+                61,
+                255
+              ],
+              "toColor": [
+                252,
+                78,
+                43,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                252,
+                78,
+                43,
+                255
+              ],
+              "toColor": [
+                227,
+                25,
+                28,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                227,
+                25,
+                28,
+                255
+              ],
+              "toColor": [
+                189,
+                0,
+                38,
+                255
+              ]
+            },
+            {
+              "type": "algorithmic",
+              "algorithm": "esriCIELabAlgorithm",
+              "fromColor": [
+                189,
+                0,
+                38,
+                255
+              ],
+              "toColor": [
+                128,
+                0,
+                38,
+                255
+              ]
+            }
+          ]
+        }
+      },
+      "type": "uniqueValue",
+      "field1": "noiseclass",
+      "defaultLabel": "",
+      "defaultSymbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                110,
+                110,
+                110,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                130,
+                130,
+                130,
+                255
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      },
+      "fieldDelimiter": ",",
+      "uniqueValueGroups": [
+        {
+          "heading": "",
+          "classes": [
+            {
+              "description": "50.0-54.9",
+              "label": "50.0-54.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        255,
+                        255,
+                        204,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "50.0-54.9"
+                ]
+              ]
+            },
+            {
+              "description": "55.0-59.9",
+              "label": "55.0-59.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        254,
+                        217,
+                        118,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "55.0-59.9"
+                ]
+              ]
+            },
+            {
+              "description": "60.0-64.9",
+              "label": "60.0-64.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        253,
+                        141,
+                        60,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "60.0-64.9"
+                ]
+              ]
+            },
+            {
+              "description": "65.0-69.9",
+              "label": "65.0-69.9",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        227,
+                        26,
+                        28,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  "65.0-69.9"
+                ]
+              ]
+            },
+            {
+              "description": "=70.0",
+              "label": ">=70.0",
+              "symbol": {
+                "type": "CIMSymbolReference",
+                "symbol": {
+                  "type": "CIMPolygonSymbol",
+                  "symbolLayers": [
+                    {
+                      "type": "CIMSolidStroke",
+                      "enable": true,
+                      "colorLocked": true,
+                      "capStyle": "Butt",
+                      "joinStyle": "Round",
+                      "lineStyle3D": "Strip",
+                      "miterLimit": 10,
+                      "width": 0.7,
+                      "height3D": 1,
+                      "anchor3D": "Center",
+                      "color": [
+                        110,
+                        110,
+                        110,
+                        0
+                      ]
+                    },
+                    {
+                      "type": "CIMSolidFill",
+                      "enable": true,
+                      "color": [
+                        128,
+                        0,
+                        38,
+                        255
+                      ]
+                    }
+                  ],
+                  "angleAlignment": "Map"
+                }
+              },
+              "values": [
+                [
+                  ">=70.0"
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "uniqueValueInfos": [
+        {
+          "description": "50.0-54.9",
+          "label": "50.0-54.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    255,
+                    255,
+                    204,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "50.0-54.9"
+        },
+        {
+          "description": "55.0-59.9",
+          "label": "55.0-59.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    254,
+                    217,
+                    118,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "55.0-59.9"
+        },
+        {
+          "description": "60.0-64.9",
+          "label": "60.0-64.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    253,
+                    141,
+                    60,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "60.0-64.9"
+        },
+        {
+          "description": "65.0-69.9",
+          "label": "65.0-69.9",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    227,
+                    26,
+                    28,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": "65.0-69.9"
+        },
+        {
+          "description": "=70.0",
+          "label": ">=70.0",
+          "symbol": {
+            "type": "CIMSymbolReference",
+            "symbol": {
+              "type": "CIMPolygonSymbol",
+              "symbolLayers": [
+                {
+                  "type": "CIMSolidStroke",
+                  "enable": true,
+                  "colorLocked": true,
+                  "capStyle": "Butt",
+                  "joinStyle": "Round",
+                  "lineStyle3D": "Strip",
+                  "miterLimit": 10,
+                  "width": 0.7,
+                  "height3D": 1,
+                  "anchor3D": "Center",
+                  "color": [
+                    110,
+                    110,
+                    110,
+                    0
+                  ]
+                },
+                {
+                  "type": "CIMSolidFill",
+                  "enable": true,
+                  "color": [
+                    128,
+                    0,
+                    38,
+                    255
+                  ]
+                }
+              ],
+              "angleAlignment": "Map"
+            }
+          },
+          "value": ">=70.0"
+        }
+      ]
+    }
+  },
+  {
+    "parquetFile": "CJ_WA_LSOA_2011_BFC_V3_2022.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.5,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                104,
+                104,
+                104,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                255,
+                235,
+                190,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "CJ_UK_LSOA_2011_Flood_Data.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.5,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                104,
+                104,
+                104,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                255,
+                235,
+                190,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "CJ_UK_Grid_UKCP18.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7000000000000001,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                104,
+                104,
+                104,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                255,
+                235,
+                190,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "CJ_EN_MSOA_2011_SHVI.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                104,
+                104,
+                104,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                255,
+                235,
+                190,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "CJ_EN_LSOA_2011_BFC_V3_2022.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.5,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                104,
+                104,
+                104,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                255,
+                235,
+                190,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "CJ_EN_Grid_Heat.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                104,
+                104,
+                104,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                255,
+                235,
+                190,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        }
+      }
+    }
+  },
+  {
+    "parquetFile": "BUA_2022_GB__EPSG_27700.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                158,
+                170,
+                215,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                214,
+                232,
+                255,
+                166
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 9244648.868618,
+            "size": 0.5
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 2311162.217155,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 1155581.108577,
+            "size": 0.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 577790.554289,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 288895.277144,
+            "size": 0.5
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 36111.909643,
+            "size": 0.7
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "LSOA_2021_EW_BFC_V8__EPSG_27700.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.5,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                70,
+                130,
+                180,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                115,
+                178,
+                255,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 577790.554289,
+            "size": 0.1
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 72223.819286,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 36111.909643,
+            "size": 0.5
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "MSOA_2021_EW_BFC_V6__EPSG_27700.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.5,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                250,
+                128,
+                114,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                201,
+                244,
+                252,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 1155581.108577,
+            "size": 0.7
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 72223.819286,
+            "size": 0.5
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.7
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "WD_DEC_2023_UK_BFC__EPSG_27700.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.2,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                119,
+                136,
+                153,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                0,
+                112,
+                255,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 3000000,
+            "size": 0.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 577790.554289,
+            "size": 0.5
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 72223.819286,
+            "size": 0.8
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "CTYUA_DEC_2023_UK_BFC__EPSG_27700.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                230,
+                180,
+                0,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                252,
+                209,
+                246,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 9244648.868618,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 4622324.434309,
+            "size": 0.5
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 2311162.217155,
+            "size": 0.7
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 72223.819286,
+            "size": 1
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.7
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "UTLA_MCTY_DEC_2022_UK_BFC__EPSG_27700.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.7,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                205,
+                92,
+                92,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                255,
+                190,
+                232,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 18489297.737236,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 9244648.868618,
+            "size": 0.5
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 577790.554289,
+            "size": 0.7
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 72223.819286,
+            "size": 1.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.7
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "UPRN_2024_05.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPointSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMPictureMarker",
+              "enable": true,
+              "anchorPointUnits": "Relative",
+              "dominantSizeAxis3D": "Z",
+              "size": 5,
+              "billboardMode3D": "FaceNearPlane",
+              "invertBackfaceTexture": true,
+              "scaleX": 1,
+              "textureFilter": "Picture",
+              "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAU0lEQVQImYWO0QmAUAwDU+h4dg3n6BrtTl3DNSIRkYcg5qv0CBcHAJI7gNB9Z8wsXWBmqrsfkpkbycPVEFihUlUh+JlfOHKsz4hr27hWSS7He+0J384lGQCkmNAAAAAASUVORK5CYII="
+            }
+          ],
+          "haloSize": 1,
+          "scaleX": 1,
+          "angleAlignment": "Display"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 9027.977411,
+            "size": 2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 4513.988705,
+            "size": 3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 2256.994353,
+            "size": 4
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 1128.497176,
+            "size": 5
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 6
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "Tiles_001_km.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.2,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                70,
+                130,
+                180,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                252,
+                186,
+                203,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 288895.277144,
+            "size": 0.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 72223.819286,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 9027.977411,
+            "size": 0.8
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 4513.988705,
+            "size": 1
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "Tiles_005_km.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.5,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                250,
+                128,
+                114,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                230,
+                0,
+                169,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 2000000,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 1155581.108577,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 288895.277144,
+            "size": 0.8
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 9027.977411,
+            "size": 1
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 4513.988705,
+            "size": 1.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.6
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "Tiles_010_km.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 0.8,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                119,
+                136,
+                153,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                216,
+                209,
+                252,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 591657527.591555,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 2311162.217155,
+            "size": 0.3
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 1155581.108577,
+            "size": 0.6
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 288895.277144,
+            "size": 1
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 72223.819286,
+            "size": 1.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 4513.988705,
+            "size": 1.6
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.8
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "Tiles_100_km.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 1.2,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                60,
+                179,
+                113,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                214,
+                252,
+                204,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 18489297.737236,
+            "size": 0.8
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 9244648.868618,
+            "size": 1
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 4622324.434309,
+            "size": 1.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 2311162.217155,
+            "size": 1.4
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 1155581.108577,
+            "size": 1.8
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 288895.277144,
+            "size": 2.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 18055.954822,
+            "size": 2.6
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 9027.977411,
+            "size": 2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 0.8
+          }
+        ]
+      }
+    }
+  },
+  {
+    "parquetFile": "BNG_Outline.parquet",
+    "renderer": {
+      "type": "simple",
+      "symbol": {
+        "type": "CIMSymbolReference",
+        "symbol": {
+          "type": "CIMPolygonSymbol",
+          "symbolLayers": [
+            {
+              "type": "CIMSolidStroke",
+              "enable": true,
+              "colorLocked": true,
+              "capStyle": "Butt",
+              "joinStyle": "Round",
+              "lineStyle3D": "Strip",
+              "miterLimit": 10,
+              "width": 2,
+              "height3D": 1,
+              "anchor3D": "Center",
+              "color": [
+                70,
+                130,
+                180,
+                255
+              ]
+            },
+            {
+              "type": "CIMSolidFill",
+              "enable": true,
+              "color": [
+                214,
+                252,
+                204,
+                0
+              ]
+            }
+          ],
+          "angleAlignment": "Map"
+        },
+        "scaleDependentSizeVariation": [
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 591657527.591555,
+            "size": 0.8
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 18489297.737236,
+            "size": 1.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 9244648.868618,
+            "size": 1.6
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 4622324.434309,
+            "size": 2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 2311162.217155,
+            "size": 2.2
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 1155581.108577,
+            "size": 2.4
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 72223.819286,
+            "size": 2.6
+          },
+          {
+            "type": "CIMScaleDependentSizeVariation",
+            "scale": 70.5310735,
+            "size": 2
+          }
+        ]
+      }
+    }
+  }
+]

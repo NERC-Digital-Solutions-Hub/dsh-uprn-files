@@ -1,0 +1,6 @@
+https://dshapitest.xyz/Tiles_001_km.parquet
+https://dshapitest.xyz/Tiles_005_km.parquet
+https://dshapitest.xyz/Tiles_010_km.parquet
+https://dshapitest.xyz/Tiles_020_km.parquet
+https://dshapitest.xyz/Tiles_050_km.parquet
+https://dshapitest.xyz/Tiles_100_km.parquet

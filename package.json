@@ -1,0 +1,30 @@
+{
+  "name": "arcgis-sveltekit-geoparquet-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/generate-parquet-manifest.mjs",
+    "prebuild": "node scripts/generate-parquet-manifest.mjs",
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "postbuild": "node scripts/copy-parquet-data.mjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "@arcgis/core": "latest",
+    "@arcgis/map-components": "latest",
+    "@esri/calcite-components": "latest",
+    "@sveltejs/kit": "latest",
+    "@sveltejs/vite-plugin-svelte": "latest",
+    "svelte": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-static": "latest",
+    "@types/node": "^25.9.0",
+    "svelte-check": "latest",
+    "typescript": "latest"
+  }
+}
