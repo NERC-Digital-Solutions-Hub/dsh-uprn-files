@@ -1,3 +1,5 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
   import { base } from '$app/paths';
   import { onMount, tick } from 'svelte';
@@ -47,14 +49,20 @@
     featureCount: number | 'unknown';
   };
 
-  type ParquetDataFile = {
+  type ParquetDataSource = {
+    id: string;
     name: string;
-    url: string;
+    urls: string[];
   };
 
   type ParquetManifest = {
-    files?: ParquetDataFile[];
+    files?: Array<{
+      name: string;
+      url: string;
+    }>;
   };
+
+  type CsvRow = Record<string, string>;
 
   type ParquetRendererEntry = {
     parquetFile: string;
@@ -63,24 +71,24 @@
 
   const DEFAULT_PARQUET_FILENAME = 'CJ_EN_LSOA_2011_BFC_V3_2022.parquet';
 
-  let mapElement: any;
-  let ready = false;
-  let loading = false;
-  let status = 'Loading ArcGIS Maps SDK components...';
-  let errorMessage = '';
+  let mapElement = $state<any>();
+  let ready = $state(false);
+  let loading = $state(false);
+  let status = $state('Loading ArcGIS Maps SDK components...');
+  let errorMessage = $state('');
 
-  let basemap = 'osm';
-  let center = '-2.5,54';
-  let zoom = 6;
-  let autoZoom = true;
-  let clearExisting = true;
-  let parquetFiles: ParquetDataFile[] = [];
-  let urlParquetFiles: ParquetDataFile[] = [];
-  let selectedParquetUrls: string[] = [];
-  let parquetRenderers = new Map<string, unknown>();
+  let basemap = $state('osm');
+  let center = $state('-2.5,54');
+  let zoom = $state(6);
+  let autoZoom = $state(true);
+  let clearExisting = $state(true);
+  let parquetFiles = $state<ParquetDataSource[]>([]);
+  let urlParquetFiles = $state<ParquetDataSource[]>([]);
+  let selectedParquetSourceIds = $state<string[]>([]);
+  let parquetRenderers = $state(new Map<string, unknown>());
 
-  let loadedLayerSummaries: LoadedLayerSummary[] = [];
-  let loadedLayers: any[] = [];
+  let loadedLayerSummaries = $state<LoadedLayerSummary[]>([]);
+  let loadedLayers = $state<any[]>([]);
 
   let ArcGISMap: any;
   let Extent: any;
@@ -153,17 +161,18 @@
     parquetFiles = localFiles;
     urlParquetFiles = listedUrls;
 
-    if (selectedParquetUrls.length === 0) {
+    if (selectedParquetSourceIds.length === 0) {
       const defaultFile =
+        urlParquetFiles.find((file) => file.name === DEFAULT_PARQUET_FILENAME) ??
+        urlParquetFiles[0] ??
         parquetFiles.find((file) => file.name === DEFAULT_PARQUET_FILENAME) ??
-        parquetFiles[0] ??
-        urlParquetFiles[0];
+        parquetFiles[0];
 
-      selectedParquetUrls = defaultFile ? [defaultFile.url] : [];
+      selectedParquetSourceIds = defaultFile ? [defaultFile.id] : [];
     }
   }
 
-  async function loadAvailableParquetFiles(): Promise<ParquetDataFile[]> {
+  async function loadAvailableParquetFiles(): Promise<ParquetDataSource[]> {
     try {
       const response = await fetch(appPath('/parquet-files.json'), { cache: 'no-store' });
 
@@ -173,10 +182,15 @@
 
       const result = (await response.json()) as ParquetManifest;
       return Array.isArray(result.files)
-        ? result.files.map((file) => ({
-            ...file,
-            url: normalizeAppAssetUrl(file.url)
-          }))
+        ? result.files.map((file) => {
+            const url = normalizeAppAssetUrl(file.url);
+
+            return {
+              id: sourceId([url]),
+              name: file.name,
+              urls: [url]
+            };
+          })
         : [];
     } catch (error) {
       errorMessage = errorToString(error);
@@ -185,36 +199,41 @@
     }
   }
 
-  async function loadParquetUrlList(): Promise<ParquetDataFile[]> {
+  async function loadParquetUrlList(): Promise<ParquetDataSource[]> {
     try {
-      const response = await fetch(appPath('/urls.txt'), { cache: 'no-store' });
+      const response = await fetch(appPath('/urls.csv'), { cache: 'no-store' });
 
       if (!response.ok) {
-        throw new Error(`Could not read urls.txt (${response.status}).`);
+        throw new Error(`Could not read urls.csv (${response.status}).`);
       }
 
-      const urlsText = await response.text();
+      const csvText = await response.text();
       const seen = new Set<string>();
 
-      return urlsText
-        .split(/\r?\n/)
-        .map((line) => line.trim())
-        .filter((line) => line.length > 0 && !line.startsWith('#'))
-        .map((line) => normalizeListedParquetUrl(line))
-        .filter((url) => {
-          if (seen.has(url)) {
+      return parseCsvRows(csvText)
+        .map((row) => {
+          const urls = parseUrlsCell(row.urls ?? '')
+            .map((url) => normalizeListedParquetUrl(url))
+            .filter((url) => url.length > 0);
+          const displayName = nullIfBlank(row.display_name ?? '');
+
+          return {
+            id: sourceId(urls),
+            name: displayName ?? defaultSourceName(urls),
+            urls
+          };
+        })
+        .filter((source) => source.urls.length > 0)
+        .filter((source) => {
+          if (seen.has(source.id)) {
             return false;
           }
 
-          seen.add(url);
+          seen.add(source.id);
           return true;
-        })
-        .map((url) => ({
-          name: parquetFileNameFromUrl(url),
-          url
-        }));
+        });
     } catch (error) {
-      console.warn('Could not read urls.txt.', error);
+      console.warn('Could not read urls.csv.', error);
       return [];
     }
   }
@@ -262,16 +281,18 @@
       return;
     }
 
-    const urls = selectedParquetUrls.map((url) => toAbsoluteUrl(url));
+    const selectedSources = [...urlParquetFiles, ...parquetFiles].filter((source) =>
+      selectedParquetSourceIds.includes(source.id)
+    );
 
-    if (urls.length === 0) {
-      status = 'Select at least one .parquet file.';
+    if (selectedSources.length === 0) {
+      status = 'Select at least one GeoParquet source.';
       return;
     }
 
     loading = true;
     errorMessage = '';
-    status = `Loading ${urls.length} GeoParquet file${urls.length === 1 ? '' : 's'}...`;
+    status = `Loading ${selectedSources.length} GeoParquet source${selectedSources.length === 1 ? '' : 's'}...`;
 
     try {
       if (clearExisting) {
@@ -281,12 +302,13 @@
       const summaries: LoadedLayerSummary[] = [];
       const extents: any[] = [];
 
-      for (const url of urls) {
-        const title = titleFromUrl(url);
-        const parquetFile = parquetFileNameFromUrl(url);
+      for (const source of selectedSources) {
+        const urls = source.urls.map((url) => toAbsoluteUrl(url));
+        const title = source.name;
+        const parquetFile = parquetFileNameFromUrl(urls[0]);
         status = `Reading GeoParquet metadata: ${title}`;
 
-        const layerInfo = await getParquetLayerInfo([url]);
+        const layerInfo = await getParquetLayerInfo(urls);
         const geoMetadata = readGeoParquetMetadata(layerInfo);
         const geometryField = getWkbGeometryField(layerInfo, geoMetadata);
         const geometryType = getArcgisGeometryType(layerInfo, geoMetadata, geometryField);
@@ -305,7 +327,7 @@
 
         const layer = new ParquetLayer({
           ...layerInfo,
-          urls: [url],
+          urls,
           title,
           fields,
           geometryEncoding: new ParquetGeometryEncodingWkb({
@@ -337,7 +359,7 @@
 
         summaries.push({
           title,
-          url,
+          url: urls.join('\n'),
           geometryField,
           geometryType,
           featureCount: count
@@ -609,6 +631,100 @@
     return value.startsWith('/') ? appPath(value) : value;
   }
 
+  function parseCsvRows(csvText: string): CsvRow[] {
+    const records = parseCsvRecords(csvText).filter((record) =>
+      record.some((value) => value.trim().length > 0)
+    );
+    const [headers, ...rows] = records;
+
+    if (!headers) {
+      return [];
+    }
+
+    return rows.map((row) =>
+      Object.fromEntries(headers.map((header, index) => [header.trim(), row[index]?.trim() ?? '']))
+    );
+  }
+
+  function parseCsvRecords(csvText: string): string[][] {
+    const records: string[][] = [];
+    let record: string[] = [];
+    let field = '';
+    let inQuotes = false;
+
+    for (let index = 0; index < csvText.length; index += 1) {
+      const character = csvText[index];
+      const nextCharacter = csvText[index + 1];
+
+      if (character === '"') {
+        if (inQuotes && nextCharacter === '"') {
+          field += '"';
+          index += 1;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (character === ',' && !inQuotes) {
+        record.push(field);
+        field = '';
+      } else if ((character === '\n' || character === '\r') && !inQuotes) {
+        record.push(field);
+        records.push(record);
+        record = [];
+        field = '';
+
+        if (character === '\r' && nextCharacter === '\n') {
+          index += 1;
+        }
+      } else {
+        field += character;
+      }
+    }
+
+    if (field.length > 0 || record.length > 0) {
+      record.push(field);
+      records.push(record);
+    }
+
+    return records;
+  }
+
+  function parseUrlsCell(value: string): string[] {
+    const cleaned = value.trim();
+
+    if (cleaned.length === 0) {
+      return [];
+    }
+
+    if (cleaned.startsWith('[')) {
+      const parsed = JSON.parse(cleaned) as unknown;
+
+      if (!Array.isArray(parsed) || !parsed.every((entry) => typeof entry === 'string')) {
+        throw new Error('The urls CSV column must contain a URL string or an array of URL strings.');
+      }
+
+      return parsed.map((entry) => entry.trim()).filter((entry) => entry.length > 0);
+    }
+
+    return cleaned.split(/[|;\s]+/).filter((url) => url.length > 0);
+  }
+
+  function nullIfBlank(value: string): string | null {
+    const cleaned = value.trim();
+    return cleaned.length === 0 ? null : cleaned;
+  }
+
+  function defaultSourceName(urls: string[]): string {
+    if (urls.length === 1) {
+      return parquetFileNameFromUrl(urls[0]);
+    }
+
+    return `${parquetFileNameFromUrl(urls[0])} + ${urls.length - 1} more`;
+  }
+
+  function sourceId(urls: string[]): string {
+    return urls.join('|');
+  }
+
   function appPath(path: string): string {
     return `${base}${path}`;
   }
@@ -621,10 +737,6 @@
     }
 
     return [x, y];
-  }
-
-  function titleFromUrl(url: string): string {
-    return parquetFileNameFromUrl(url).replace(/\.parquet$/i, '');
   }
 
   function parquetFileNameFromUrl(url: string): string {
@@ -779,7 +891,7 @@
   <GeoParquetSidebar
     {parquetFiles}
     {urlParquetFiles}
-    bind:selectedParquetUrls
+    bind:selectedParquetSourceIds
     bind:basemap
     bind:center
     bind:zoom

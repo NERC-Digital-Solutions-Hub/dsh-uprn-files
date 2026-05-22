@@ -66,13 +66,15 @@ Open the local URL printed by Vite, usually:
 http://localhost:5173
 ```
 
-In the app, enter one URL per line:
+External URL sources are listed in `static/urls.csv` with these columns:
 
-```text
-/parquet/Addresses.parquet
-/parquet/Roads.parquet
-/parquet/Buildings.parquet
+```csv
+urls,display_name
+https://example.com/Addresses.parquet,
+"https://example.com/Roads_01.parquet|https://example.com/Roads_02.parquet",Roads
 ```
+
+Leave `display_name` empty to show the file name from the URL. Use `display_name` for rows that represent multiple URLs.
 
 Click **Load GeoParquet**.
 
@@ -137,7 +139,7 @@ Try these checks:
 
 This app intentionally loads each URL as a separate `ParquetLayer`. That is usually correct when each feature class is a separate GeoParquet file.
 
-If you have multiple Parquet files that are partitions of the same logical layer, use a single `ParquetLayer` with multiple URLs. That would require a small code change in `loadGeoParquet()`.
+If you have multiple Parquet files that are partitions of the same logical layer, put them in one `urls.csv` row and separate the URLs with `|`. The app will load that row as one `ParquetLayer` with multiple URLs.
 
 ## Layer to Parquet mapping
 

@@ -1,7 +1,10 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
-	type ParquetDataFile = {
+	type ParquetDataSource = {
+		id: string;
 		name: string;
-		url: string;
+		urls: string[];
 	};
 
 	type LoadedLayerSummary = {
@@ -12,56 +15,77 @@
 		featureCount: number | 'unknown';
 	};
 
-	export let parquetFiles: ParquetDataFile[] = [];
-	export let urlParquetFiles: ParquetDataFile[] = [];
-	export let selectedParquetUrls: string[] = [];
-	export let ready = false;
-	export let loading = false;
-	export let status = '';
-	export let errorMessage = '';
-	export let basemap = '';
-	export let center = '';
-	export let zoom = 6;
-	export let autoZoom = true;
-	export let clearExisting = true;
-	export let loadedLayerSummaries: LoadedLayerSummary[] = [];
-	export let onLoadGeoParquet: () => void = () => undefined;
-	export let onUpdateView: () => void = () => undefined;
-	export let onRemoveLoadedLayers: () => void = () => undefined;
+	type Props = {
+		parquetFiles?: ParquetDataSource[];
+		urlParquetFiles?: ParquetDataSource[];
+		selectedParquetSourceIds?: string[];
+		ready?: boolean;
+		loading?: boolean;
+		status?: string;
+		errorMessage?: string;
+		basemap?: string;
+		center?: string;
+		zoom?: number;
+		autoZoom?: boolean;
+		clearExisting?: boolean;
+		loadedLayerSummaries?: LoadedLayerSummary[];
+		onLoadGeoParquet?: () => void;
+		onUpdateView?: () => void;
+		onRemoveLoadedLayers?: () => void;
+	};
 
-	$: localSelectedCount = selectedCountFromFiles(parquetFiles, selectedParquetUrls);
-	$: urlSelectedCount = selectedCountFromFiles(urlParquetFiles, selectedParquetUrls);
-	$: localSelectionLabel = selectionLabelFromFiles(
-		parquetFiles,
-		selectedParquetUrls,
-		'Select local parquet files'
+	let {
+		parquetFiles = [],
+		urlParquetFiles = [],
+		selectedParquetSourceIds = $bindable([]),
+		ready = false,
+		loading = false,
+		status = '',
+		errorMessage = '',
+		basemap = $bindable(''),
+		center = $bindable(''),
+		zoom = $bindable(6),
+		autoZoom = $bindable(true),
+		clearExisting = $bindable(true),
+		loadedLayerSummaries = [],
+		onLoadGeoParquet = () => undefined,
+		onUpdateView = () => undefined,
+		onRemoveLoadedLayers = () => undefined
+	}: Props = $props();
+
+	let localSelectedCount = $derived(selectedCountFromSources(parquetFiles, selectedParquetSourceIds));
+	let urlSelectedCount = $derived(selectedCountFromSources(urlParquetFiles, selectedParquetSourceIds));
+	let localSelectionLabel = $derived(
+		selectionLabelFromSources(parquetFiles, selectedParquetSourceIds, 'Select local parquet files')
 	);
-	$: urlSelectionLabel = selectionLabelFromFiles(
-		urlParquetFiles,
-		selectedParquetUrls,
-		'Select parquet URLs'
+	let urlSelectionLabel = $derived(
+		selectionLabelFromSources(urlParquetFiles, selectedParquetSourceIds, 'Select parquet URL rows')
 	);
 
-	function selectedCountFromFiles(files: ParquetDataFile[], selectedUrls: string[]): number {
-		return files.filter((file) => selectedUrls.includes(file.url)).length;
+	function selectedCountFromSources(sources: ParquetDataSource[], selectedIds: string[]): number {
+		return sources.filter((source) => selectedIds.includes(source.id)).length;
 	}
 
-	function selectionLabelFromFiles(
-		files: ParquetDataFile[],
-		selectedUrls: string[],
+	function selectionLabelFromSources(
+		sources: ParquetDataSource[],
+		selectedIds: string[],
 		fallback: string
 	): string {
-		const selectedNames = files
-			.filter((file) => selectedUrls.includes(file.url))
-			.map((file) => file.name);
+		const selectedNames = sources
+			.filter((source) => selectedIds.includes(source.id))
+			.map((source) => source.name);
 
 		return selectedNames.length > 0 ? selectedNames.join(', ') : fallback;
 	}
 
-	function toggleParquetFile(url: string): void {
-		selectedParquetUrls = selectedParquetUrls.includes(url)
-			? selectedParquetUrls.filter((selectedUrl) => selectedUrl !== url)
-			: [...selectedParquetUrls, url];
+	function toggleParquetSource(id: string): void {
+		selectedParquetSourceIds = selectedParquetSourceIds.includes(id)
+			? selectedParquetSourceIds.filter((selectedId) => selectedId !== id)
+			: [...selectedParquetSourceIds, id];
+	}
+
+	function sourceTitle(source: ParquetDataSource): string {
+		return source.urls.join('\n');
 	}
 </script>
 
@@ -71,11 +95,11 @@
 		<h1>GeoParquet ParquetLayer test viewer</h1>
 		<p>
 			Copy GeoParquet files into <code>parquet-data</code> or add external GeoParquet URLs to
-			<code>urls.txt</code>, then choose one or more sources.
+			<code>urls.csv</code>, then choose one or more sources.
 		</p>
 	</header>
 
-	<!-- <section class="control-group">
+	<section class="control-group">
 		<span id="local-parquet-selector-label" class="control-label">Local GeoParquet data</span>
 		<details class="multi-select">
 			<summary aria-labelledby="local-parquet-selector-label">
@@ -87,21 +111,24 @@
 				{#if parquetFiles.length === 0}
 					<p class="empty-state">No .parquet files were found in parquet-data.</p>
 				{:else}
-					{#each parquetFiles as file}
+					{#each parquetFiles as source (source.id)}
 						<button
 							type="button"
-							class:selected={selectedParquetUrls.includes(file.url)}
-							aria-pressed={selectedParquetUrls.includes(file.url)}
-							on:click={() => toggleParquetFile(file.url)}
+							class:selected={selectedParquetSourceIds.includes(source.id)}
+							aria-pressed={selectedParquetSourceIds.includes(source.id)}
+							title={sourceTitle(source)}
+							onclick={() => toggleParquetSource(source.id)}
 						>
-							<span>{file.name}</span>
-							<span class="checkmark">{selectedParquetUrls.includes(file.url) ? 'Selected' : ''}</span>
+							<span>{source.name}</span>
+							<span class="checkmark"
+								>{selectedParquetSourceIds.includes(source.id) ? 'Selected' : ''}</span
+							>
 						</button>
 					{/each}
 				{/if}
 			</div>
 		</details>
-	</section> -->
+	</section>
 
 	<section class="control-group">
 		<span id="url-parquet-selector-label" class="control-label">GeoParquet URLs</span>
@@ -113,18 +140,20 @@
 
 			<div class="options" role="listbox" aria-multiselectable="true">
 				{#if urlParquetFiles.length === 0}
-					<p class="empty-state">No .parquet URLs were found in urls.txt.</p>
+					<p class="empty-state">No .parquet URLs were found in urls.csv.</p>
 				{:else}
-					{#each urlParquetFiles as file}
+					{#each urlParquetFiles as source (source.id)}
 						<button
 							type="button"
-							class:selected={selectedParquetUrls.includes(file.url)}
-							aria-pressed={selectedParquetUrls.includes(file.url)}
-							title={file.url}
-							on:click={() => toggleParquetFile(file.url)}
+							class:selected={selectedParquetSourceIds.includes(source.id)}
+							aria-pressed={selectedParquetSourceIds.includes(source.id)}
+							title={sourceTitle(source)}
+							onclick={() => toggleParquetSource(source.id)}
 						>
-							<span>{file.name}</span>
-							<span class="checkmark">{selectedParquetUrls.includes(file.url) ? 'Selected' : ''}</span>
+							<span>{source.name}</span>
+							<span class="checkmark"
+								>{selectedParquetSourceIds.includes(source.id) ? 'Selected' : ''}</span
+							>
 						</button>
 					{/each}
 				{/if}
@@ -166,13 +195,13 @@
 	</section>
 
 	<div class="actions">
-		<button type="button" on:click={onLoadGeoParquet} disabled={!ready || loading}>
+		<button type="button" onclick={onLoadGeoParquet} disabled={!ready || loading}>
 			{loading ? 'Loading...' : 'Load GeoParquet'}
 		</button>
-		<button type="button" class="secondary" on:click={onUpdateView} disabled={!ready}>
+		<button type="button" class="secondary" onclick={onUpdateView} disabled={!ready}>
 			Update view
 		</button>
-		<button type="button" class="secondary" on:click={onRemoveLoadedLayers} disabled={!ready}>
+		<button type="button" class="secondary" onclick={onRemoveLoadedLayers} disabled={!ready}>
 			Clear layers
 		</button>
 	</div>
