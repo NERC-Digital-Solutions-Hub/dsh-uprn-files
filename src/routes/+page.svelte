@@ -49,6 +49,16 @@
     featureCount: number | 'unknown';
   };
 
+  type RenderBenchmark = {
+    id: number;
+    title: string;
+    urlCount: number;
+    urls: string[];
+    elapsedMs: number;
+    completedAt: string;
+    rendered: boolean;
+  };
+
   type ParquetDataSource = {
     id: string;
     name: string;
@@ -89,12 +99,15 @@
 
   let loadedLayerSummaries = $state<LoadedLayerSummary[]>([]);
   let loadedLayers = $state<any[]>([]);
+  let renderBenchmarks = $state<RenderBenchmark[]>([]);
+  let benchmarkId = 0;
 
   let ArcGISMap: any;
   let Extent: any;
   let ParquetLayer: any;
   let ParquetGeometryEncodingWkb: any;
   let rendererJsonUtils: { fromJSON?: (json: object) => unknown } | undefined;
+  let reactiveUtils: { whenOnce?: (condition: () => boolean) => Promise<unknown> } | undefined;
   let getParquetLayerInfo: ((urls: string[]) => Promise<any>) | undefined;
 
   onMount(async () => {
@@ -115,6 +128,7 @@
         parquetLayerModule,
         parquetGeometryEncodingWkbModule,
         rendererJsonUtilsModule,
+        reactiveUtilsModule,
         parquetUtilsModule
       ] = await Promise.all([
         import('@arcgis/core/Map.js'),
@@ -122,6 +136,7 @@
         import('@arcgis/core/layers/ParquetLayer.js'),
         import('@arcgis/core/layers/support/ParquetGeometryEncodingWkb.js'),
         import('@arcgis/core/renderers/support/jsonUtils.js'),
+        import('@arcgis/core/core/reactiveUtils.js'),
         import('@arcgis/core/layers/support/parquetUtils.js')
       ]);
 
@@ -130,6 +145,7 @@
       ParquetLayer = parquetLayerModule.default;
       ParquetGeometryEncodingWkb = parquetGeometryEncodingWkbModule.default;
       rendererJsonUtils = rendererJsonUtilsModule;
+      reactiveUtils = reactiveUtilsModule;
       getParquetLayerInfo = parquetUtilsModule.getParquetLayerInfo;
 
       await customElements.whenDefined('arcgis-map');
@@ -168,7 +184,7 @@
         parquetFiles.find((file) => file.name === DEFAULT_PARQUET_FILENAME) ??
         parquetFiles[0];
 
-      selectedParquetSourceIds = defaultFile ? [defaultFile.id] : [];
+      selectedParquetSourceIds = []; // defaultFile ? [defaultFile.id] : [];
     }
   }
 
@@ -303,6 +319,7 @@
       const extents: any[] = [];
 
       for (const source of selectedSources) {
+        const benchmarkStart = performance.now();
         const urls = source.urls.map((url) => toAbsoluteUrl(url));
         const title = source.name;
         const parquetFile = parquetFileNameFromUrl(urls[0]);
@@ -344,6 +361,20 @@
         loadedLayers = [...loadedLayers, layer];
 
         await layer.when();
+        status = `Rendering GeoParquet layer: ${title}`;
+        const rendered = await waitForLayerRender(layer);
+        renderBenchmarks = [
+          {
+            id: (benchmarkId += 1),
+            title,
+            urlCount: urls.length,
+            urls,
+            elapsedMs: performance.now() - benchmarkStart,
+            completedAt: new Date().toISOString(),
+            rendered
+          },
+          ...renderBenchmarks
+        ];
 
         let count: number | 'unknown' = 'unknown';
         try {
@@ -421,6 +452,48 @@
     if ((mapElement.zoom ?? 0) < 7 && targetExtent.center) {
       await mapElement.goTo({ center: targetExtent.center, zoom: 7 }).catch(() => undefined);
     }
+  }
+
+  async function waitForLayerRender(layer: any): Promise<boolean> {
+    try {
+      const layerView = await mapElement.whenLayerView(layer);
+      await nextAnimationFrame();
+
+      if (layerView.updating === false) {
+        return true;
+      }
+
+      if (!reactiveUtils?.whenOnce) {
+        return false;
+      }
+
+      await withTimeout(reactiveUtils.whenOnce(() => layerView.updating === false), 120000);
+      return layerView.updating === false;
+    } catch (renderError) {
+      console.warn(`Could not confirm render completion for ${layer.title}.`, renderError);
+      return false;
+    }
+  }
+
+  function nextAnimationFrame(): Promise<void> {
+    return new Promise((resolve) => requestAnimationFrame(() => resolve()));
+  }
+
+  function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+    return new Promise((resolve, reject) => {
+      const timeout = window.setTimeout(() => reject(new Error('Timed out waiting for layer render.')), timeoutMs);
+
+      promise.then(
+        (value) => {
+          window.clearTimeout(timeout);
+          resolve(value);
+        },
+        (error: unknown) => {
+          window.clearTimeout(timeout);
+          reject(error);
+        }
+      );
+    });
   }
 
   function readGeoParquetMetadata(layerInfo: ParquetLayerInfo): GeoParquetMetadata | undefined {
@@ -828,7 +901,7 @@
   }
 
   function rendererForParquetFile(parquetFile: string, geometryType: ArcgisGeometryType): any {
-    const mappedRenderer = parquetRenderers.get(parquetFile);
+    const mappedRenderer = null;// parquetRenderers.get(parquetFile);
 
     if (!mappedRenderer) {
       return rendererForGeometry(geometryType);
@@ -902,6 +975,7 @@
     {status}
     {errorMessage}
     {loadedLayerSummaries}
+    {renderBenchmarks}
     onLoadGeoParquet={loadGeoParquet}
     onUpdateView={updateView}
     onRemoveLoadedLayers={removeLoadedLayers}

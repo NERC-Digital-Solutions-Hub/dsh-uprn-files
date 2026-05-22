@@ -15,6 +15,16 @@
 		featureCount: number | 'unknown';
 	};
 
+	type RenderBenchmark = {
+		id: number;
+		title: string;
+		urlCount: number;
+		urls: string[];
+		elapsedMs: number;
+		completedAt: string;
+		rendered: boolean;
+	};
+
 	type Props = {
 		parquetFiles?: ParquetDataSource[];
 		urlParquetFiles?: ParquetDataSource[];
@@ -29,6 +39,7 @@
 		autoZoom?: boolean;
 		clearExisting?: boolean;
 		loadedLayerSummaries?: LoadedLayerSummary[];
+		renderBenchmarks?: RenderBenchmark[];
 		onLoadGeoParquet?: () => void;
 		onUpdateView?: () => void;
 		onRemoveLoadedLayers?: () => void;
@@ -48,6 +59,7 @@
 		autoZoom = $bindable(true),
 		clearExisting = $bindable(true),
 		loadedLayerSummaries = [],
+		renderBenchmarks = [],
 		onLoadGeoParquet = () => undefined,
 		onUpdateView = () => undefined,
 		onRemoveLoadedLayers = () => undefined
@@ -87,6 +99,26 @@
 	function sourceTitle(source: ParquetDataSource): string {
 		return source.urls.join('\n');
 	}
+
+	function formatElapsedTime(elapsedMs: number): string {
+		if (elapsedMs < 1000) {
+			return `${Math.round(elapsedMs)} ms`;
+		}
+
+		return `${(elapsedMs / 1000).toFixed(2)} s`;
+	}
+
+	function formatCompletedAt(value: string): string {
+		return new Intl.DateTimeFormat(undefined, {
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit'
+		}).format(new Date(value));
+	}
+
+	function urlsFromSummary(value: string): string[] {
+		return value.split('\n').filter((url) => url.length > 0);
+	}
 </script>
 
 <aside class="panel">
@@ -99,7 +131,7 @@
 		</p>
 	</header>
 
-	<section class="control-group">
+	<!-- <section class="control-group">
 		<span id="local-parquet-selector-label" class="control-label">Local GeoParquet data</span>
 		<details class="multi-select">
 			<summary aria-labelledby="local-parquet-selector-label">
@@ -128,7 +160,7 @@
 				{/if}
 			</div>
 		</details>
-	</section>
+	</section> -->
 
 	<section class="control-group">
 		<span id="url-parquet-selector-label" class="control-label">GeoParquet URLs</span>
@@ -214,10 +246,64 @@
 		{/if}
 	</section>
 
+	<section class="benchmarks">
+		<details>
+			<summary>
+				<span>Render benchmarks</span>
+				<strong>{renderBenchmarks.length} saved</strong>
+			</summary>
+
+			<div class="benchmark-list">
+				{#if renderBenchmarks.length === 0}
+					<p class="empty-state">No render benchmarks yet.</p>
+				{:else}
+					{#each renderBenchmarks as benchmark (benchmark.id)}
+						<article>
+							<header>
+								<strong>{benchmark.title}</strong>
+								<span class:pending={!benchmark.rendered}>
+									{benchmark.rendered ? formatElapsedTime(benchmark.elapsedMs) : 'Render not confirmed'}
+								</span>
+							</header>
+							<dl>
+								<div>
+									<dt>Completed</dt>
+									<dd>{formatCompletedAt(benchmark.completedAt)}</dd>
+								</div>
+								<div>
+									<dt>URLs</dt>
+									<dd>{benchmark.urlCount}</dd>
+								</div>
+								<div>
+									<dt>Source</dt>
+									<dd>
+										{#if benchmark.urls.length > 1}
+											<details class="source-list">
+												<summary>{benchmark.urls.length} source URLs</summary>
+												<ul>
+													{#each benchmark.urls as url}
+														<li>{url}</li>
+													{/each}
+												</ul>
+											</details>
+										{:else}
+											{benchmark.urls[0]}
+										{/if}
+									</dd>
+								</div>
+							</dl>
+						</article>
+					{/each}
+				{/if}
+			</div>
+		</details>
+	</section>
+
 	{#if loadedLayerSummaries.length > 0}
 		<section class="results">
 			<h2>Loaded layers</h2>
 			{#each loadedLayerSummaries as layer}
+				{@const urls = urlsFromSummary(layer.url)}
 				<article>
 					<strong>{layer.title}</strong>
 					<dl>
@@ -235,7 +321,20 @@
 						</div>
 						<div>
 							<dt>URL</dt>
-							<dd>{layer.url}</dd>
+							<dd>
+								{#if urls.length > 1}
+									<details class="source-list">
+										<summary>{urls.length} source URLs</summary>
+										<ul>
+											{#each urls as url}
+												<li>{url}</li>
+											{/each}
+										</ul>
+									</details>
+								{:else}
+									{urls[0]}
+								{/if}
+							</dd>
 						</div>
 					</dl>
 				</article>
@@ -287,6 +386,7 @@
 	.checkboxes,
 	.actions,
 	.status,
+	.benchmarks,
 	.results {
 		margin-top: 1.15rem;
 	}
@@ -484,6 +584,135 @@
 	.status p {
 		margin: 0.35rem 0 0;
 		line-height: 1.4;
+	}
+
+	.benchmarks details {
+		border: 1px solid #d7dce2;
+		border-radius: 0.85rem;
+		background: #ffffff;
+	}
+
+	.benchmarks summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		padding: 0.8rem 0.85rem;
+		cursor: pointer;
+		list-style: none;
+		font-weight: 700;
+	}
+
+	.benchmarks summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.benchmarks summary::after {
+		content: '';
+		width: 0.45rem;
+		height: 0.45rem;
+		border-right: 2px solid #52616f;
+		border-bottom: 2px solid #52616f;
+		transform: rotate(45deg) translateY(-0.15rem);
+		flex: 0 0 auto;
+	}
+
+	.benchmarks details[open] summary::after {
+		transform: rotate(225deg) translateY(-0.05rem);
+	}
+
+	.benchmarks summary span {
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.benchmarks summary strong {
+		flex: 0 0 auto;
+		color: #52616f;
+		font-size: 0.78rem;
+	}
+
+	.benchmark-list {
+		display: grid;
+		gap: 0.7rem;
+		border-top: 1px solid #d7dce2;
+		padding: 0.75rem;
+	}
+
+	.benchmark-list article {
+		border: 1px solid #d7dce2;
+		border-radius: 0.7rem;
+		background: #f8fafc;
+		padding: 0.75rem;
+	}
+
+	.benchmark-list article header {
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	.benchmark-list article header strong {
+		overflow-wrap: anywhere;
+	}
+
+	.benchmark-list article header span {
+		color: #144f86;
+		font-size: 1rem;
+		font-weight: 800;
+	}
+
+	.benchmark-list article header span.pending {
+		color: #8a5a00;
+		font-size: 0.86rem;
+	}
+
+	.source-list {
+		max-width: 100%;
+	}
+
+	.source-list summary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		border: 1px solid #c9d2dc;
+		border-radius: 0.45rem;
+		background: #ffffff;
+		padding: 0.25rem 0.45rem;
+		color: #144f86;
+		font-size: 0.82rem;
+		font-weight: 700;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.source-list summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.source-list summary::after {
+		content: '';
+		width: 0.35rem;
+		height: 0.35rem;
+		border-right: 2px solid currentColor;
+		border-bottom: 2px solid currentColor;
+		transform: rotate(45deg) translateY(-0.1rem);
+	}
+
+	.source-list[open] summary::after {
+		transform: rotate(225deg) translateY(-0.02rem);
+	}
+
+	.source-list ul {
+		display: grid;
+		gap: 0.35rem;
+		margin: 0.5rem 0 0;
+		padding-left: 1rem;
+	}
+
+	.source-list li {
+		overflow-wrap: anywhere;
 	}
 
 	pre {
