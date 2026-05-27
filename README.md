@@ -183,6 +183,31 @@ Generate Parquet renderer mappings from `data.json` and a completed layer mappin
 python scripts/create_parquet_renderer_json.py --mapping layer-parquet-mapping/layer-parquet-map.json
 ```
 
+Expand missing child sublayers for `ArcGISMapServiceLayer` entries in `data.json`:
+
+```bash
+python scripts/add_missing_mapservice_children.py
+```
+
+By default, the script updates `data.json` in place and writes `data.json.bak` before saving changes. To inspect the result first, write to a separate file:
+
+```bash
+python scripts/add_missing_mapservice_children.py --output data-with-mapservice-children.json
+```
+
+Create a web map whose mapped layers load their GeoParquet equivalents as `ParquetLayer` entries:
+
+```bash
+python scripts/create_parquet_webmap.py \
+  --web-map data-with-mapservice-children.json \
+  --base-url /parquet-data \
+  --parquet-dir parquet-data \
+  --mapping layer-parquet-mapping/layer-parquet-map.json \
+  --output data-parquet-webmap.json
+```
+
+The script keeps each matched layer's existing web map `id` and `title` or `name`, sets its `layerType` to `ParquetLayer`, and replaces its `url` with the base URL plus the parquet file path relative to `--parquet-dir`.
+
 This writes `static/parquet-renderers.json`, a single JSON array of `{ "parquetFile", "renderer" }` objects. The Svelte app loads this file from `/parquet-renderers.json` and applies matching ArcGIS renderer JSON to loaded `ParquetLayer` instances. Entries with no renderer fall back to the app's default geometry renderer.
 
 If a mapped web map entry has no renderer, the script fetches that entry's ArcGIS REST layer resource with `f=pjson&returnAdvancedSymbols=true` and reads `drawingInfo.renderer`, which is the renderer location documented for Feature Service layer JSON. If the URL is a nonspatial table, the script also looks for a related same-service web map layer with matching fields and title tokens, then reuses that layer's renderer.

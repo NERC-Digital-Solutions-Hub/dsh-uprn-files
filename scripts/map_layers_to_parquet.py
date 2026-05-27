@@ -32,6 +32,7 @@ from urllib.request import Request, urlopen
 TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 ABBREVIATIONS = {
     "aqrean": ["air", "quality", "receptor", "exposure", "analysis"],
+    "aqi": ["air", "quality", "index"],
     "bc": ["bias", "corrected"],
     "bfc": ["boundary", "full", "clipped"],
     "bng": ["british", "national", "grid"],
@@ -40,27 +41,139 @@ ABBREVIATIONS = {
     "cj": ["climate", "just"],
     "cm": ["cell", "match"],
     "co": ["carbon"],
+    "corcoef": ["correlation", "coefficient"],
     "ctry": ["country"],
     "ctyua": ["county", "unitary", "authority"],
     "defra": ["environment", "food", "rural", "affairs"],
+    "dgt": ["ozone"],
+    "da": ["dry", "aerosol"],
+    "devianceweighted": ["deviance", "weighted"],
+    "downdistinct": ["down", "distinct"],
     "end": ["environmental", "noise", "directive"],
     "en": ["england"],
     "epsg": ["spatial", "reference"],
     "evi": ["ellenberg", "vegetation", "indicator"],
+    "ffc": ["fossil", "fuel", "combustion"],
     "gb": ["great", "britain"],
+    "grainsize": ["grain", "size"],
     "laeq": ["equivalent", "continuous", "sound", "level"],
     "lden": ["day", "evening", "night", "noise"],
+    "leaveoneout": ["leave", "one", "out", "cross", "validation"],
     "lnight": ["night", "noise"],
+    "loglike": ["log", "likelihood", "regression"],
     "lsoa": ["lower", "layer", "super", "output", "area"],
     "mcty": ["metropolitan", "county"],
     "msoa": ["middle", "layer", "super", "output", "area"],
+    "nh4": ["ammonium"],
+    "nh4no3": ["ammonium", "nitrate"],
+    "no2": ["nitrogen", "dioxide"],
+    "no3": ["nitrate"],
+    "nox": ["nitrogen", "oxides"],
+    "oc": ["organic", "carbon"],
+    "om": ["organic", "matter"],
+    "pm10": ["pm", "10"],
+    "pm25": ["pm", "2", "5"],
+    "pm2p5": ["pm2", "5"],
     "ons": ["office", "national", "statistics"],
+    "regress2median": ["regression", "median"],
     "rgn": ["region"],
+    "rhoweighted": ["rho", "weighted"],
+    "semamong": ["standard", "error", "mean", "among", "ensembles"],
+    "semamongmodels": ["standard", "error", "mean", "among", "models"],
     "shvi": ["social", "heat", "vulnerability", "index"],
+    "so4": ["sulfate"],
+    "so2": ["sulphur", "dioxide"],
+    "sp": ["secondary", "particulate"],
+    "temp": ["temperature"],
+    "updistinct": ["up", "distinct"],
     "uprn": ["unique", "property", "reference", "number"],
     "utla": ["upper", "tier", "local", "authority"],
     "wa": ["wales"],
     "wd": ["ward"],
+}
+METRIC_ABBREVIATIONS = {
+    **ABBREVIATIONS,
+    "a": ["annual"],
+    "bba": ["biomass", "burning", "aerosol"],
+    "bc": ["black", "carbon"],
+    "bz": ["benzene"],
+    "co": ["carbon", "monoxide"],
+    "dgt120": ["ozone"],
+    "m": ["max"],
+    "pm10": ["particulate", "matter", "10"],
+    "pm25": ["particulate", "matter", "2", "5"],
+}
+COMPACT_TOKEN_PARTS = [
+    ("coverweight", ["cover", "weighted"]),
+    ("1519", ["2015", "2019"]),
+    ("8hr", ["8", "hours"]),
+    ("90", ["1990"]),
+    ("diff", ["difference"]),
+    ("fert", ["fertility"]),
+    ("react", ["reactivity"]),
+    ("moist", ["moisture"]),
+    ("light", ["light"]),
+    ("site", ["non", "cover", "weighted"]),
+]
+GENERIC_MATCH_TOKENS = {
+    "a",
+    "an",
+    "and",
+    "annual",
+    "area",
+    "aerosol",
+    "availability",
+    "between",
+    "cubic",
+    "concentration",
+    "data",
+    "dataset",
+    "daily",
+    "dgt",
+    "dry",
+    "ensemble",
+    "ensembles",
+    "ellenberg",
+    "for",
+    "from",
+    "grid",
+    "gridded",
+    "in",
+    "indicator",
+    "indicators",
+    "layer",
+    "less",
+    "level",
+    "map",
+    "mass",
+    "measurements",
+    "metre",
+    "micrograms",
+    "micrometre",
+    "milligrams",
+    "mean",
+    "means",
+    "model",
+    "of",
+    "on",
+    "period",
+    "per",
+    "pm2",
+    "pm",
+    "2",
+    "5",
+    "raster",
+    "soil",
+    "storage",
+    "surface",
+    "t",
+    "than",
+    "the",
+    "to",
+    "uk",
+    "vegetation",
+    "web",
+    "120",
 }
 
 
@@ -77,7 +190,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--web-map", default="data.json", help="Path to the web map JSON.")
     parser.add_argument(
-        "--parquet-dir", default="parquet-data", help="Directory containing .parquet files."
+        "--parquet-dir", default="parquet-data", help="Directory containing .parquet files. Scanned recursively."
     )
     parser.add_argument(
         "--output-dir",
@@ -162,29 +275,67 @@ def safe_file_stem(value: str) -> str:
     return cleaned.strip().strip(".") or "layer"
 
 
+def is_numeric_layer_id(value: Any) -> bool:
+    if isinstance(value, int):
+        return True
+    if isinstance(value, str):
+        return value.isdigit()
+    return False
+
+
+def service_root_url(url: str) -> str:
+    parsed = urlparse(url)
+    parts = parsed.path.rstrip("/").split("/")
+    for server_type in ("FeatureServer", "MapServer"):
+        matching_indexes = [index for index, part in enumerate(parts) if part.lower() == server_type.lower()]
+        if matching_indexes:
+            index = matching_indexes[-1]
+            root_path = "/".join(parts[: index + 1])
+            return urlunparse(parsed._replace(path=root_path, params="", query="", fragment=""))
+    return url
+
+
+def child_layer_url(parent_url: str, child_id: Any) -> str:
+    return f"{service_root_url(parent_url).rstrip('/')}/{child_id}"
+
+
 def iter_url_entries(web_map: dict[str, Any], include_tables: bool) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
 
-    def walk(value: Any, path: list[str]) -> None:
+    def walk(value: Any, path: list[str], parent_id: str | None = None, parent_url: str | None = None) -> None:
         if isinstance(value, dict):
-            if value.get("id") and value.get("url"):
+            raw_id = value.get("id")
+            current_id = None
+            if raw_id is not None:
+                raw_id_text = str(raw_id)
+                current_id = f"{parent_id}-{raw_id_text}" if parent_id and is_numeric_layer_id(raw_id) else raw_id_text
+
+            current_url = value.get("url")
+            if not current_url and parent_url and is_numeric_layer_id(raw_id):
+                current_url = child_layer_url(parent_url, raw_id)
+
+            if current_id:
                 entries.append(
                     {
-                        "id": str(value["id"]),
+                        "id": current_id,
+                        "sourceId": str(raw_id),
+                        "parentId": parent_id,
                         "title": value.get("title") or value.get("name") or "",
-                        "url": value["url"],
+                        "url": current_url or "",
                         "path": path.copy(),
                         "layerType": value.get("layerType", ""),
+                        "webMapLayer": value,
                     }
                 )
+
             for child_key in ("layers",):
                 children = value.get(child_key)
                 if isinstance(children, list):
                     for index, child in enumerate(children):
-                        walk(child, [*path, child_key, str(index)])
+                        walk(child, [*path, child_key, str(index)], current_id or parent_id, current_url or parent_url)
         elif isinstance(value, list):
             for index, item in enumerate(value):
-                walk(item, [*path, str(index)])
+                walk(item, [*path, str(index)], parent_id, parent_url)
 
     for index, layer in enumerate(web_map.get("operationalLayers", [])):
         walk(layer, ["operationalLayers", str(index)])
@@ -194,6 +345,14 @@ def iter_url_entries(web_map: dict[str, Any], include_tables: bool) -> list[dict
             walk(table, ["tables", str(index)])
 
     return entries
+
+
+def is_container_entry(entry: dict[str, Any]) -> bool:
+    value = entry.get("webMapLayer") if isinstance(entry.get("webMapLayer"), dict) else {}
+    if isinstance(value.get("layers"), list) and value["layers"]:
+        return True
+    layer_type = str(value.get("layerType") or entry.get("layerType") or "").lower()
+    return layer_type == "grouplayer"
 
 
 def fetch_json(url: str, timeout: float) -> dict[str, Any]:
@@ -226,6 +385,35 @@ def trim_layer_json(entry: dict[str, Any], downloaded: dict[str, Any]) -> dict[s
         "type": downloaded.get("type") or entry.get("layerType") or "",
         "geometryType": downloaded.get("geometryType"),
         "hasGeometry": has_arcgis_geometry(downloaded),
+        "fields": fields,
+    }
+
+
+def trim_inline_layer_json(entry: dict[str, Any]) -> dict[str, Any]:
+    value = entry.get("webMapLayer") if isinstance(entry.get("webMapLayer"), dict) else {}
+    fields = []
+    layer_definition = value.get("layerDefinition") if isinstance(value, dict) else None
+    if isinstance(layer_definition, dict):
+        for field in layer_definition.get("fields") or []:
+            if not isinstance(field, dict):
+                continue
+            field_name = str(field.get("name", "")).strip()
+            if not field_name:
+                continue
+            fields.append(
+                {
+                    "name": field_name,
+                    "alias": str(field.get("alias") or field_name).strip() or field_name,
+                }
+            )
+
+    return {
+        "id": entry["id"],
+        "name": value.get("name") or value.get("title") or entry.get("title") or "",
+        "description": value.get("description") or value.get("serviceItemId") or "",
+        "type": value.get("type") or entry.get("layerType") or "",
+        "geometryType": value.get("geometryType"),
+        "hasGeometry": bool(value.get("geometryType")),
         "fields": fields,
     }
 
@@ -265,8 +453,11 @@ def load_or_fetch_layer_metadata(
                 continue
 
         try:
-            downloaded = fetch_json(entry["url"], timeout)
-            trimmed = trim_layer_json(entry, downloaded)
+            if entry.get("url"):
+                downloaded = fetch_json(entry["url"], timeout)
+                trimmed = trim_layer_json(entry, downloaded)
+            else:
+                trimmed = trim_inline_layer_json(entry)
             write_json(output_path, trimmed)
             metadata.append(trimmed)
         except (HTTPError, URLError, TimeoutError, json.JSONDecodeError, OSError) as error:
@@ -297,10 +488,12 @@ def read_parquet_metadata(parquet_dir: Path) -> list[dict[str, Any]]:
         raise SystemExit("pyarrow is required to inspect Parquet schemas. Install it with: pip install pyarrow") from error
 
     metadata = []
-    for path in sorted(parquet_dir.glob("*.parquet")):
+    for path in sorted(parquet_dir.rglob("*.parquet")):
         parquet_file = pq.ParquetFile(path)
         schema = parquet_file.schema_arrow
         geometry_metadata = read_geoparquet_metadata(schema.metadata)
+        parquet_name = path.relative_to(parquet_dir).as_posix()
+        assumes_raster = path.name.lower().startswith("t_")
         fields = []
         for field in schema:
             fields.append({"name": field.name, "alias": field.name})
@@ -311,8 +504,9 @@ def read_parquet_metadata(parquet_dir: Path) -> list[dict[str, Any]]:
             geometry_types = column_metadata.get("geometry_types") or []
         metadata.append(
             {
-                "name": path.name,
-                "hasGeometry": bool(geometry_metadata),
+                "name": parquet_name,
+                "hasGeometry": bool(geometry_metadata) and not assumes_raster,
+                "assumedRaster": assumes_raster,
                 "geometryField": geometry_field,
                 "geometryTypes": geometry_types,
                 "fields": fields,
@@ -337,11 +531,143 @@ def normalize_tokens(value: str) -> list[str]:
     for token in tokens:
         expanded.append(token)
         expanded.extend(ABBREVIATIONS.get(token, []))
+        expanded.extend(expand_compact_token(token))
     return expanded
+
+
+def expand_compact_token(token: str) -> list[str]:
+    remaining = token.lower()
+    expanded = []
+    matched = True
+    while remaining and matched:
+        matched = False
+        for prefix, replacements in COMPACT_TOKEN_PARTS:
+            if remaining.startswith(prefix):
+                expanded.extend(replacements)
+                remaining = remaining[len(prefix) :]
+                matched = True
+                break
+    return expanded if matched or not remaining else []
 
 
 def token_set(value: str) -> set[str]:
     return set(normalize_tokens(value))
+
+
+def is_year_token(value: str) -> bool:
+    return bool(re.fullmatch(r"(?:19|20)\d{2}", value))
+
+
+def significant_tokens(value: str) -> set[str]:
+    return non_generic_tokens(token_set(value))
+
+
+def parquet_metric_tokens(parquet_name: str) -> set[str]:
+    stem = Path(parquet_name).stem.lower()
+    if not stem.startswith("t_"):
+        return set()
+
+    parts = [part for part in stem.split("__") if part]
+    metric_part = parts[-1] if parts else stem
+    return {
+        token
+        for token in TOKEN_PATTERN.findall(metric_part)
+        if token != "t" and not is_year_token(token)
+    }
+
+
+def expanded_tokens(tokens: set[str]) -> set[str]:
+    expanded = set(tokens)
+    for token in tokens:
+        expanded.update(ABBREVIATIONS.get(token, []))
+    return expanded
+
+
+def semantic_tokens(tokens: set[str]) -> set[str]:
+    result = set()
+    for token in tokens:
+        replacements = ABBREVIATIONS.get(token)
+        if replacements:
+            result.update(replacements)
+        else:
+            result.add(token)
+        result.update(expand_compact_token(token))
+    return result
+
+
+def metric_semantic_tokens(tokens: set[str]) -> set[str]:
+    result = set()
+    for token in tokens:
+        replacements = METRIC_ABBREVIATIONS.get(token)
+        if replacements:
+            result.update(replacements)
+        else:
+            result.add(token)
+        result.update(expand_compact_token(token))
+    return result
+
+
+def non_generic_tokens(tokens: set[str]) -> set[str]:
+    return {
+        token
+        for token in tokens
+        if token not in GENERIC_MATCH_TOKENS and not token.isdigit() and not is_year_token(token)
+    }
+
+
+def token_matches_layer(token: str, layer_tokens: set[str]) -> bool:
+    if token in layer_tokens:
+        return True
+    if token == "bc" and {"black", "carbon"} <= layer_tokens:
+        return True
+    expanded = set(METRIC_ABBREVIATIONS.get(token, []))
+    expanded.update(expand_compact_token(token))
+    return bool(expanded) and expanded <= layer_tokens
+
+
+def metric_token_coverage(layer_name: str, parquet_name: str) -> tuple[float, str]:
+    metric_tokens = parquet_metric_tokens(parquet_name)
+    if not metric_tokens:
+        return 1.0, "notApplicable"
+
+    layer_tokens = token_set(layer_name)
+    meaningful_tokens = {
+        token
+        for token in metric_tokens
+        if non_generic_tokens(metric_semantic_tokens({token}))
+    }
+    if not meaningful_tokens:
+        return 1.0, f"metricTokens={sorted(metric_tokens)}; metricMeaningful=[]; metricMatched=[]"
+
+    matched = {token for token in meaningful_tokens if token_matches_layer(token, layer_tokens)}
+    coverage_score = len(matched) / len(meaningful_tokens)
+    return coverage_score, (
+        f"metricTokens={sorted(metric_tokens)}; "
+        f"metricMeaningful={sorted(meaningful_tokens)}; "
+        f"metricMatched={sorted(matched)}"
+    )
+
+
+def metric_matches_distinctive_layer_tokens(layer_name: str, parquet_name: str) -> tuple[bool, str]:
+    layer_distinctive = significant_tokens(layer_name)
+    if not layer_distinctive:
+        return True, "layerDistinctive=[]; candidateDistinctiveMatched=[]; distinctiveCoverage=1.00"
+
+    metric_distinctive = non_generic_tokens(metric_semantic_tokens(parquet_metric_tokens(parquet_name)))
+    candidate_context = expanded_tokens(significant_tokens(parquet_name))
+    candidate_context.update(metric_distinctive)
+    matched = layer_distinctive & candidate_context
+    coverage_score = len(matched) / len(layer_distinctive)
+    metric_matched = metric_distinctive & layer_distinctive
+    precision_score = len(metric_matched) / len(metric_distinctive) if metric_distinctive else 1.0
+    return coverage_score >= 1.0 and precision_score >= 0.67, (
+        f"layerDistinctive={sorted(layer_distinctive)}; "
+        f"candidateDistinctiveMatched={sorted(matched)}; "
+        f"distinctiveCoverage={coverage_score:.2f}; "
+        f"metricDistinctive={sorted(metric_distinctive)}; "
+        f"metricDistinctiveMatched={sorted(metric_matched)}; "
+        f"metricPrecision={precision_score:.2f}"
+    )
 
 
 def field_tokens(fields: list[dict[str, Any]], key: str) -> set[str]:
@@ -375,7 +701,7 @@ def abbreviation_score(layer_text: str, parquet_name: str) -> float:
             matches += 1
             continue
         expanded = set(ABBREVIATIONS.get(token, []))
-        if expanded and expanded & layer_tokens:
+        if expanded and expanded <= layer_tokens:
             matches += 1
     return matches / len(parquet_tokens)
 
@@ -384,13 +710,36 @@ def deterministic_score(layer: dict[str, Any], parquet: dict[str, Any]) -> Candi
     parquet_name = parquet["name"]
     layer_name = str(layer.get("name", ""))
     layer_description = str(layer.get("description", ""))
+    layer_type = str(layer.get("type") or "unknown")
+    layer_type_lower = layer_type.lower()
 
     if parquet.get("hasGeometry") and not layer.get("hasGeometry"):
-        layer_type = str(layer.get("type") or "unknown")
         return CandidateScore(
             parquet_name,
             0.0,
             f"incompatibleGeometry=parquet has geometry but ArcGIS type is {layer_type}",
+        )
+
+    if parquet.get("assumedRaster") and "raster" not in layer_type_lower:
+        return CandidateScore(
+            parquet_name,
+            0.0,
+            f"incompatibleRaster=parquet filename starts with t_ but ArcGIS type is {layer_type}",
+        )
+
+    metric_match, metric_reason = metric_token_coverage(layer_name, parquet_name)
+    if parquet.get("assumedRaster") and metric_match < 0.5:
+        return CandidateScore(
+            parquet_name,
+            0.0,
+            f"incompatibleMetric={metric_reason}; layerType={layer_type}",
+        )
+    distinctive_match, distinctive_reason = metric_matches_distinctive_layer_tokens(layer_name, parquet_name)
+    if parquet.get("assumedRaster") and not distinctive_match:
+        return CandidateScore(
+            parquet_name,
+            0.0,
+            f"incompatibleDistinctiveMetric={distinctive_reason}; {metric_reason}; layerType={layer_type}",
         )
 
     parquet_tokens = token_set(Path(parquet_name).stem)
@@ -418,6 +767,7 @@ def deterministic_score(layer: dict[str, Any], parquet: dict[str, Any]) -> Candi
         + field_name_match * 0.25
         + field_alias_match * 0.15
         + abbreviation_match * 0.10
+        + metric_match * 0.18
     )
     parts = [
         f"name={name_match:.2f}",
@@ -425,8 +775,12 @@ def deterministic_score(layer: dict[str, Any], parquet: dict[str, Any]) -> Candi
         f"fieldName={field_name_match:.2f}",
         f"fieldAlias={field_alias_match:.2f}",
         f"abbreviation={abbreviation_match:.2f}",
-        f"layerType={layer.get('type') or 'unknown'}",
+        f"layerType={layer_type}",
         f"parquetHasGeometry={bool(parquet.get('hasGeometry'))}",
+        f"parquetAssumedRaster={bool(parquet.get('assumedRaster'))}",
+        f"metricMatch={metric_match:.2f}",
+        metric_reason,
+        distinctive_reason,
     ]
     return CandidateScore(parquet_name, round(min(score, 1.0), 4), "; ".join(parts))
 
@@ -530,6 +884,7 @@ def validate_llm_result(layer_id: str, candidates: list[dict[str, Any]], result:
 def deterministic_rerank_result(layer: dict[str, Any], candidates: list[CandidateScore]) -> dict[str, Any]:
     return {
         "webMapId": layer["id"],
+        "webMapTitle": layer.get("name", ""),
         "candidates": [
             {
                 "parquetFile": candidate.parquet_file,
@@ -574,6 +929,7 @@ def rerank_candidates(
                 result = deterministic_rerank_result(layer, layer_candidates)
         else:
             result = deterministic_rerank_result(layer, layer_candidates)
+        result["webMapTitle"] = layer.get("name", "")
         result["candidates"].sort(key=lambda item: item["score"], reverse=True)
         reranked.append(result)
         print(f"Reranked {index}/{len(layers)}: {layer['id']}", file=sys.stderr)
@@ -709,8 +1065,11 @@ def build_outputs(
 
     for item in reranked:
         web_map_id = item["webMapId"]
+        web_map_title = str(item.get("webMapTitle") or "")
         candidates = item.get("candidates", [])
         selected_candidate = selected.get(web_map_id)
+        if selected_candidate and float(selected_candidate.get("score", 0)) <= 0:
+            selected_candidate = None
         alternatives = [
             candidate
             for candidate in candidates
@@ -731,11 +1090,16 @@ def build_outputs(
 
         if selected_candidate:
             final.append(
-                {"webMapId": web_map_id, "parquetFile": selected_candidate["parquetFile"]}
+                {
+                    "webMapId": web_map_id,
+                    "webMapTitle": web_map_title,
+                    "parquetFile": selected_candidate["parquetFile"],
+                }
             )
             debug.append(
                 {
                     "webMapId": web_map_id,
+                    "webMapTitle": web_map_title,
                     "selectedParquetFile": selected_candidate["parquetFile"],
                     "score": selected_candidate["score"],
                     "reason": selected_candidate.get("reason", ""),
@@ -747,6 +1111,7 @@ def build_outputs(
             debug.append(
                 {
                     "webMapId": web_map_id,
+                    "webMapTitle": web_map_title,
                     "selectedParquetFile": None,
                     "score": 0,
                     "reason": "No candidate could be assigned in the global matching step.",
@@ -766,9 +1131,22 @@ def main() -> None:
     layer_dir = output_dir / "layers"
 
     web_map = read_json(web_map_path)
-    layer_entries = iter_url_entries(web_map, include_tables=not args.exclude_tables)
+    all_layer_entries = iter_url_entries(web_map, include_tables=not args.exclude_tables)
+    container_entries = [entry for entry in all_layer_entries if is_container_entry(entry)]
+    layer_entries = [entry for entry in all_layer_entries if not is_container_entry(entry)]
+    write_json(
+        output_dir / "skipped-containers.json",
+        [
+            {
+                "webMapId": entry["id"],
+                "webMapTitle": entry.get("title", ""),
+                "reason": "Container/group layer with child layers; children are mapped instead.",
+            }
+            for entry in container_entries
+        ],
+    )
     if not layer_entries:
-        raise SystemExit("No URL-backed web map layers were found.")
+        raise SystemExit("No mappable web map layers were found.")
 
     layers = load_or_fetch_layer_metadata(
         layer_entries, layer_dir, args.refresh_layer_json, args.request_timeout
@@ -784,8 +1162,11 @@ def main() -> None:
     write_json(
         output_dir / "deterministic-candidates.json",
         {
-            layer_id: [candidate.__dict__ for candidate in candidates]
-            for layer_id, candidates in deterministic.items()
+            layer["id"]: {
+                "webMapTitle": layer.get("name", ""),
+                "candidates": [candidate.__dict__ for candidate in deterministic[layer["id"]]],
+            }
+            for layer in layers
         },
     )
 

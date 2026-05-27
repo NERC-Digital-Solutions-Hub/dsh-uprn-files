@@ -1,0 +1,145 @@
+{
+  "rendererSource": "raster_tile_style_feature_layer_renderers.json",
+  "existingRendererPolicy": "fill-missing-or-repair-placeholder-fields",
+  "rendererTargetPath": "layerDefinition.drawingInfo.renderer",
+  "mappings": [
+    {
+      "rendererKey": "Carbon Storage",
+      "targetGroupPath": ["Carbon Storage"],
+      "selection": "descendant-parquet-layers",
+      "rendererRange": {
+        "mode": "parquet-min-max"
+      },
+      "rendererField": {
+        "sourceField": "Value",
+        "skipWithoutMatch": true,
+        "byUrlBasename": {
+          "t_ceh_carbon__corcoef.parquet": "CorCoef",
+          "t_ceh_carbon__devianceweighted.parquet": "DevianceWeighted",
+          "t_ceh_carbon__downdistinct.parquet": "DownDistinct",
+          "t_ceh_carbon__grainsize.parquet": "GrainSize",
+          "t_ceh_carbon__leaveoneout.parquet": "LeaveOneOut",
+          "t_ceh_carbon__loglike.parquet": "LogLike",
+          "t_ceh_carbon__mean.parquet": "Mean",
+          "t_ceh_carbon__median.parquet": "Median",
+          "t_ceh_carbon__pca.parquet": "PCA",
+          "t_ceh_carbon__regress2median.parquet": "Regress2Median",
+          "t_ceh_carbon__rhoweighted.parquet": "RhoWeighted",
+          "t_ceh_carbon__semamong.parquet": "SEMamong",
+          "t_ceh_carbon__semamongmodels.parquet": "SEMamongModels",
+          "t_ceh_carbon__updistinct.parquet": "UpDistinct"
+        }
+      }
+    },
+    {
+      "rendererKey": "EVI Difference",
+      "targetGroupPath": ["Ellenberg Vegetation Indicators"],
+      "selection": "descendant-parquet-layers",
+      "rendererRange": {
+        "mode": "parquet-min-max"
+      },
+      "rendererField": {
+        "sourceField": "Value",
+        "skipWithoutMatch": true,
+        "byUrlBasename": {
+          "t_ceh_ellenbergvegetationindicators__fertcoverweight1519.parquet": "FertCoverWeight1519",
+          "t_ceh_ellenbergvegetationindicators__fertcoverweight90.parquet": "FertCoverWeight90",
+          "t_ceh_ellenbergvegetationindicators__fertcoverweightdiff.parquet": "FertCoverWeightDiff",
+          "t_ceh_ellenbergvegetationindicators__fertsite1519.parquet": "FertSite1519",
+          "t_ceh_ellenbergvegetationindicators__fertsite90.parquet": "FertSite90",
+          "t_ceh_ellenbergvegetationindicators__fertsitediff.parquet": "FertSiteDiff",
+          "t_ceh_ellenbergvegetationindicators__lightcoverweight1519.parquet": "LightCoverWeight1519",
+          "t_ceh_ellenbergvegetationindicators__lightcoverweight90.parquet": "LightCoverWeight90",
+          "t_ceh_ellenbergvegetationindicators__lightcoverweightdiff.parquet": "LightCoverWeightDiff",
+          "t_ceh_ellenbergvegetationindicators__lightsite1519.parquet": "LightSite1519",
+          "t_ceh_ellenbergvegetationindicators__lightsite90.parquet": "LightSite90",
+          "t_ceh_ellenbergvegetationindicators__lightsitediff.parquet": "LightSiteDiff",
+          "t_ceh_ellenbergvegetationindicators__moistcoverweight1519.parquet": "MoistCoverWeight1519",
+          "t_ceh_ellenbergvegetationindicators__moistcoverweight90.parquet": "MoistCoverWeight90",
+          "t_ceh_ellenbergvegetationindicators__moistcoverweightdiff.parquet": "MoistCoverWeightDiff",
+          "t_ceh_ellenbergvegetationindicators__moistsite1519.parquet": "MoistSite1519",
+          "t_ceh_ellenbergvegetationindicators__moistsite90.parquet": "MoistSite90",
+          "t_ceh_ellenbergvegetationindicators__moistsitediff.parquet": "MoistSiteDiff",
+          "t_ceh_ellenbergvegetationindicators__reactcoverweight1519.parquet": "ReactCoverWeight1519",
+          "t_ceh_ellenbergvegetationindicators__reactcoverweight90.parquet": "ReactCoverWeight90",
+          "t_ceh_ellenbergvegetationindicators__reactcoverweightdiff.parquet": "ReactCoverWeightDiff",
+          "t_ceh_ellenbergvegetationindicators__reactsite1519.parquet": "ReactSite1519",
+          "t_ceh_ellenbergvegetationindicators__reactsite90.parquet": "ReactSite90",
+          "t_ceh_ellenbergvegetationindicators__reactsitediff.parquet": "ReactSiteDiff"
+        }
+      }
+    },
+    {
+      "rendererKey": "Air Temperature (Surface)",
+      "targetGroupPath": [
+        "AQREAN Surface Level",
+        "Air Temperature (Surface Level) annual means"
+      ],
+      "selection": "descendant-parquet-layers",
+      "rendererField": {
+        "sourceField": "Value",
+        "field": "air_temp"
+      }
+    },
+    {
+      "rendererKey": "Relative Humidity (Surface)",
+      "targetGroupPath": [
+        "AQREAN Surface Level",
+        "Relative Humidity (Surface Level) annual means"
+      ],
+      "selection": "descendant-parquet-layers",
+      "rendererField": {
+        "sourceField": "Value",
+        "field": "relative_humidity"
+      }
+    },
+    {
+      "rendererKey": "Air Quality Index - PM2.5 Dry Aerosol",
+      "targetGroupPath": [
+        "AQREAN Surface Level",
+        "Air Quality Index - PM2.5 Dry Aerosol (Daily Measurements) (Surface Level) annual means"
+      ],
+      "selection": "descendant-parquet-layers",
+      "rendererField": {
+        "sourceField": "Value",
+        "field": "aqi_pm2p5_da"
+      }
+    },
+    {
+      "rendererKey": "Air Quality Index - PM2.5 Dry Aerosol",
+      "targetGroupPath": [
+        "AQREAN Surface Level - Bias Corrected",
+        "Air Quality Index - PM2.5 Dry Aerosol (Daily Measurements) (Surface Level) (Bias Corrected) annual means"
+      ],
+      "selection": "descendant-parquet-layers",
+      "rendererField": {
+        "sourceField": "Value",
+        "field": "aqi_pm2p5_da"
+      }
+    },
+    {
+      "rendererKey": "Air Quality Index - NO2",
+      "targetGroupPath": [
+        "AQREAN Surface Level",
+        "Air Quality Index - Nitrogen Dioxide (NO2) (Daily Measurements) (Surface Level) annual means"
+      ],
+      "selection": "descendant-parquet-layers",
+      "rendererField": {
+        "sourceField": "Value",
+        "field": "aqi_no2"
+      }
+    },
+    {
+      "rendererKey": "Air Quality Index - NO2",
+      "targetGroupPath": [
+        "AQREAN Surface Level - Bias Corrected",
+        "Air Quality Index - Nitrogen Dioxide (NO2) (Daily Measurements) (Surface Level) (Bias Corrected) annual means"
+      ],
+      "selection": "descendant-parquet-layers",
+      "rendererField": {
+        "sourceField": "Value",
+        "field": "aqi_no2"
+      }
+    }
+  ]
+}

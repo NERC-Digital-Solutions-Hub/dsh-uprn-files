@@ -28,6 +28,7 @@
 	type Props = {
 		parquetFiles?: ParquetDataSource[];
 		urlParquetFiles?: ParquetDataSource[];
+		webMapLoaded?: boolean;
 		selectedParquetSourceIds?: string[];
 		ready?: boolean;
 		loading?: boolean;
@@ -48,6 +49,7 @@
 	let {
 		parquetFiles = [],
 		urlParquetFiles = [],
+		webMapLoaded = false,
 		selectedParquetSourceIds = $bindable([]),
 		ready = false,
 		loading = false,
@@ -124,10 +126,10 @@
 <aside class="panel">
 	<header>
 		<p class="eyebrow">ArcGIS Maps SDK + SvelteKit</p>
-		<h1>GeoParquet ParquetLayer test viewer</h1>
+		<h1>GeoParquet web map viewer</h1>
 		<p>
-			Copy GeoParquet files into <code>parquet-data</code> or add external GeoParquet URLs to
-			<code>urls.csv</code>, then choose one or more sources.
+			{webMapLoaded ? 'The converted web map is loaded.' : 'Loading the converted web map...'}
+			Use the ArcGIS layer list on the map to toggle groups and layers.
 		</p>
 	</header>
 
@@ -363,13 +365,6 @@
 		margin: 0;
 		color: #52616f;
 		line-height: 1.45;
-	}
-
-	code {
-		border-radius: 0.35rem;
-		background: #eef2f7;
-		padding: 0.08rem 0.28rem;
-		font-size: 0.86em;
 	}
 
 	.eyebrow {

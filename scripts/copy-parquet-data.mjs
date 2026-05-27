@@ -1,17 +1,30 @@
 import { copyFile, mkdir, readdir, rm } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
 const sourceDir = resolve(process.env.PARQUET_DATA_DIR ?? 'parquet-data');
 const outputDir = resolve('build/parquet-data');
 
-async function readParquetFiles() {
+async function readParquetFiles(directory = sourceDir, prefix = '') {
   try {
-    const entries = await readdir(sourceDir, { withFileTypes: true });
+    const entries = await readdir(directory, { withFileTypes: true });
+    const nestedFiles = await Promise.all(
+      entries.map(async (entry) => {
+        const relativeName = prefix ? `${prefix}/${entry.name}` : entry.name;
+        const fullPath = join(directory, entry.name);
 
-    return entries
-      .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.parquet'))
-      .map((entry) => entry.name)
-      .sort((first, second) => first.localeCompare(second));
+        if (entry.isDirectory()) {
+          return readParquetFiles(fullPath, relativeName);
+        }
+
+        if (entry.isFile() && entry.name.toLowerCase().endsWith('.parquet')) {
+          return [relativeName];
+        }
+
+        return [];
+      })
+    );
+
+    return nestedFiles.flat().sort((first, second) => first.localeCompare(second));
   } catch (error) {
     if (error?.code === 'ENOENT') {
       return [];
@@ -27,7 +40,9 @@ await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });
 
 for (const file of files) {
-  await copyFile(join(sourceDir, file), join(outputDir, file));
+  const outputPath = join(outputDir, file);
+  await mkdir(dirname(outputPath), { recursive: true });
+  await copyFile(join(sourceDir, file), outputPath);
 }
 
 console.log(`Copied ${files.length} Parquet file${files.length === 1 ? '' : 's'} to ${outputDir}.`);

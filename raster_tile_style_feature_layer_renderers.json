@@ -1,0 +1,1187 @@
+{
+  "field_assumption": "All renderers use a numeric field named Value. Replace Value with your feature layer field name if needed.",
+  "geometry_assumption": "Symbols are polygon fill symbols for raster-cell feature layers. For point or line feature layers, switch the symbol type to esriSMS or esriSLS.",
+  "usage": "Copy any object under renderers into operationalLayers[i].layerDefinition.drawingInfo.renderer in a WebMap JSON.",
+  "renderers": {
+    "Carbon Storage": {
+      "type": "simple",
+      "symbol": {
+        "type": "esriSFS",
+        "style": "esriSFSSolid",
+        "color": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "outline": {
+          "type": "esriSLS",
+          "style": "esriSLSNull",
+          "color": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "width": 0
+        }
+      },
+      "visualVariables": [
+        {
+          "type": "colorInfo",
+          "field": "Value",
+          "legendOptions": {
+            "title": "Value"
+          },
+          "stops": [
+            {
+              "value": 0,
+              "color": [
+                255,
+                244,
+                232,
+                255
+              ],
+              "label": "0"
+            },
+            {
+              "value": 1,
+              "color": [
+                130,
+                41,
+                4,
+                255
+              ],
+              "label": "1"
+            }
+          ]
+        }
+      ]
+    },
+    "EVI Difference": {
+      "type": "simple",
+      "symbol": {
+        "type": "esriSFS",
+        "style": "esriSFSSolid",
+        "color": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "outline": {
+          "type": "esriSLS",
+          "style": "esriSLSNull",
+          "color": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "width": 0
+        }
+      },
+      "visualVariables": [
+        {
+          "type": "colorInfo",
+          "field": "Value",
+          "legendOptions": {
+            "title": "Value"
+          },
+          "stops": [
+            {
+              "value": -1.47,
+              "color": [
+                244,
+                251,
+                183,
+                255
+              ],
+              "label": "-1.47"
+            },
+            {
+              "value": 3.6,
+              "color": [
+                46,
+                147,
+                77,
+                255
+              ],
+              "label": "3.6"
+            }
+          ]
+        }
+      ]
+    },
+    "Air Temperature (Surface)": {
+      "type": "simple",
+      "symbol": {
+        "type": "esriSFS",
+        "style": "esriSFSSolid",
+        "color": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "outline": {
+          "type": "esriSLS",
+          "style": "esriSLSNull",
+          "color": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "width": 0
+        }
+      },
+      "visualVariables": [
+        {
+          "type": "colorInfo",
+          "field": "Value",
+          "legendOptions": {
+            "title": "Value"
+          },
+          "stops": [
+            {
+              "value": 281.393,
+              "color": [
+                0,
+                122,
+                194,
+                255
+              ],
+              "label": "281.393"
+            },
+            {
+              "value": 282.3065,
+              "color": [
+                139,
+                210,
+                186,
+                255
+              ],
+              "label": "mid"
+            },
+            {
+              "value": 283.22,
+              "color": [
+                254,
+                254,
+                214,
+                255
+              ],
+              "label": "283.22"
+            }
+          ]
+        }
+      ]
+    },
+    "Relative Humidity (Surface)": {
+      "type": "simple",
+      "symbol": {
+        "type": "esriSFS",
+        "style": "esriSFSSolid",
+        "color": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "outline": {
+          "type": "esriSLS",
+          "style": "esriSLSNull",
+          "color": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "width": 0
+        }
+      },
+      "visualVariables": [
+        {
+          "type": "colorInfo",
+          "field": "Value",
+          "legendOptions": {
+            "title": "Value"
+          },
+          "stops": [
+            {
+              "value": 78.163,
+              "color": [
+                194,
+                243,
+                254,
+                255
+              ],
+              "label": "78.163"
+            },
+            {
+              "value": 81.92699999999999,
+              "color": [
+                93,
+                183,
+                236,
+                255
+              ],
+              "label": "mid"
+            },
+            {
+              "value": 85.691,
+              "color": [
+                2,
+                96,
+                217,
+                255
+              ],
+              "label": "85.691"
+            }
+          ]
+        }
+      ]
+    },
+    "Air Quality Index - PM2.5 Dry Aerosol": {
+      "type": "simple",
+      "symbol": {
+        "type": "esriSFS",
+        "style": "esriSFSSolid",
+        "color": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "outline": {
+          "type": "esriSLS",
+          "style": "esriSLSNull",
+          "color": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "width": 0
+        }
+      },
+      "visualVariables": [
+        {
+          "type": "colorInfo",
+          "field": "Value",
+          "legendOptions": {
+            "title": "Value"
+          },
+          "stops": [
+            {
+              "value": 1.25761,
+              "color": [
+                196,
+                220,
+                238,
+                255
+              ],
+              "label": "1.25761"
+            },
+            {
+              "value": 1.37224,
+              "color": [
+                165,
+                193,
+                220,
+                255
+              ],
+              "label": "mid"
+            },
+            {
+              "value": 1.48687,
+              "color": [
+                166,
+                143,
+                198,
+                255
+              ],
+              "label": "1.48687"
+            }
+          ]
+        }
+      ]
+    },
+    "Air Quality Index - NO2": {
+      "type": "simple",
+      "symbol": {
+        "type": "esriSFS",
+        "style": "esriSFSSolid",
+        "color": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "outline": {
+          "type": "esriSLS",
+          "style": "esriSLSNull",
+          "color": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "width": 0
+        }
+      },
+      "visualVariables": [
+        {
+          "type": "colorInfo",
+          "field": "Value",
+          "legendOptions": {
+            "title": "Value"
+          },
+          "stops": [
+            {
+              "value": 1.0206,
+              "color": [
+                255,
+                243,
+                240,
+                255
+              ],
+              "label": "1.0206"
+            },
+            {
+              "value": 1.158035,
+              "color": [
+                250,
+                166,
+                183,
+                255
+              ],
+              "label": "mid"
+            },
+            {
+              "value": 1.29547,
+              "color": [
+                191,
+                12,
+                113,
+                255
+              ],
+              "label": "1.29547"
+            }
+          ]
+        }
+      ]
+    },
+    "Benzene annual mean (micrograms per cubic metre)": {
+      "type": "classBreaks",
+      "field": "Value",
+      "classificationMethod": "esriClassifyManual",
+      "minValue": 0,
+      "defaultSymbol": null,
+      "defaultLabel": "No data / outside range",
+      "classBreakInfos": [
+        {
+          "classMaxValue": 0.1,
+          "label": "≤ 0.1",
+          "description": "≤ 0.1",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              49,
+              54,
+              149,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.2,
+          "label": "> 0.1 - 0.2",
+          "description": "> 0.1 - 0.2",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              74,
+              123,
+              183,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.3,
+          "label": "> 0.2 - 0.3",
+          "description": "> 0.2 - 0.3",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              128,
+              183,
+              214,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.4,
+          "label": "> 0.3 - 0.4",
+          "description": "> 0.3 - 0.4",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              189,
+              226,
+              238,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.5,
+          "label": "> 0.4 - 0.5",
+          "description": "> 0.4 - 0.5",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              238,
+              248,
+              223,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.6,
+          "label": "> 0.5 - 0.6",
+          "description": "> 0.5 - 0.6",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              254,
+              238,
+              165,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.7,
+          "label": "> 0.6 - 0.7",
+          "description": "> 0.6 - 0.7",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              253,
+              191,
+              113,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.8,
+          "label": "> 0.7 - 0.8",
+          "description": "> 0.7 - 0.8",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              246,
+              123,
+              74,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.9,
+          "label": "> 0.8 - 0.9",
+          "description": "> 0.8 - 0.9",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              218,
+              55,
+              42,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 9007199254740991,
+          "label": "> 0.9",
+          "description": "> 0.9",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              165,
+              0,
+              38,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        }
+      ]
+    },
+    "Nitrogen Dioxide annual mean (micrograms per cubic metre)": {
+      "type": "classBreaks",
+      "field": "Value",
+      "classificationMethod": "esriClassifyManual",
+      "minValue": 0,
+      "defaultSymbol": null,
+      "defaultLabel": "No data / outside range",
+      "classBreakInfos": [
+        {
+          "classMaxValue": 3,
+          "label": "≤ 3",
+          "description": "≤ 3",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              49,
+              54,
+              149,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 6,
+          "label": "> 3 - 6",
+          "description": "> 3 - 6",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              74,
+              123,
+              183,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 9,
+          "label": "> 6 - 9",
+          "description": "> 6 - 9",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              128,
+              183,
+              214,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 12,
+          "label": "> 9 - 12",
+          "description": "> 9 - 12",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              189,
+              226,
+              238,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 16,
+          "label": "> 12 - 16",
+          "description": "> 12 - 16",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              238,
+              248,
+              223,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 20,
+          "label": "> 16 - 20",
+          "description": "> 16 - 20",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              254,
+              238,
+              165,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 24,
+          "label": "> 20 - 24",
+          "description": "> 20 - 24",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              253,
+              191,
+              113,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 30,
+          "label": "> 24 - 30",
+          "description": "> 24 - 30",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              246,
+              123,
+              74,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 38,
+          "label": "> 30 - 38",
+          "description": "> 30 - 38",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              218,
+              55,
+              42,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 9007199254740991,
+          "label": "> 38",
+          "description": "> 38",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              165,
+              0,
+              38,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        }
+      ]
+    },
+    "Carbon Monoxide (milligrams per cubic metre)": {
+      "type": "classBreaks",
+      "field": "Value",
+      "classificationMethod": "esriClassifyManual",
+      "minValue": 0.202,
+      "defaultSymbol": null,
+      "defaultLabel": "No data / outside range",
+      "classBreakInfos": [
+        {
+          "classMaxValue": 0.203,
+          "label": "0.202 - 0.203",
+          "description": "0.202 - 0.203",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              49,
+              54,
+              149,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.205,
+          "label": "0.204 - 0.205",
+          "description": "0.204 - 0.205",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              74,
+              123,
+              183,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.209,
+          "label": "0.206 - 0.209",
+          "description": "0.206 - 0.209",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              128,
+              183,
+              214,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.213,
+          "label": "0.21 - 0.213",
+          "description": "0.21 - 0.213",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              189,
+              226,
+              238,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.218,
+          "label": "0.214 - 0.218",
+          "description": "0.214 - 0.218",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              238,
+              248,
+              223,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.223,
+          "label": "0.219 - 0.223",
+          "description": "0.219 - 0.223",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              254,
+              238,
+              165,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.23,
+          "label": "0.224 - 0.23",
+          "description": "0.224 - 0.23",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              253,
+              191,
+              113,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.24,
+          "label": "0.231 - 0.24",
+          "description": "0.231 - 0.24",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              246,
+              123,
+              74,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.256,
+          "label": "0.241 - 0.256",
+          "description": "0.241 - 0.256",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              218,
+              55,
+              42,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        },
+        {
+          "classMaxValue": 0.3,
+          "label": "0.257 - 0.3",
+          "description": "0.257 - 0.3",
+          "symbol": {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [
+              165,
+              0,
+              38,
+              255
+            ],
+            "outline": {
+              "type": "esriSLS",
+              "style": "esriSLSNull",
+              "color": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "width": 0
+            }
+          }
+        }
+      ]
+    }
+  }
+}

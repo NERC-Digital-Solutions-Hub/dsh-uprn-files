@@ -4,42 +4,10 @@
   import { base } from '$app/paths';
   import { onMount, tick } from 'svelte';
   import GeoParquetSidebar from '$lib/components/GeoParquetSidebar.svelte';
-
-  type ArcgisGeometryType = 'point' | 'polygon' | 'polyline' | 'multipoint';
-
-  type ParquetField = {
-    name: string;
-    alias?: string;
-    type?: string;
-    [key: string]: unknown;
-  };
-
-  type GeoParquetColumnMetadata = {
-    encoding?: string;
-    bbox?: number[];
-    orientation?: string;
-    geometry_types?: string[];
-    [key: string]: unknown;
-  };
-
-  type GeoParquetMetadata = {
-    version?: string;
-    primary_column?: string;
-    columns?: Record<string, GeoParquetColumnMetadata>;
-    [key: string]: unknown;
-  };
-
-  type ParquetLayerInfo = {
-    urls?: string[];
-    fields?: ParquetField[];
-    geometryType?: ArcgisGeometryType | null;
-    spatialReference?: unknown;
-    geometryEncoding?: unknown;
-    file?: {
-      keyValueMetadata?: (key: string) => string | undefined;
-    };
-    [key: string]: unknown;
-  };
+  import {
+    GeoParquetPipeline,
+    type GeoParquetLayerOptions
+  } from '$lib/geoparquetPipeline';
 
   type LoadedLayerSummary = {
     title: string;
@@ -79,6 +47,47 @@
     renderer: unknown;
   };
 
+  type WebMapLayerJson = {
+    id?: string | number;
+    title?: string;
+    name?: string;
+    url?: string;
+    layerType?: string;
+    visibility?: boolean;
+    defaultVisibility?: boolean;
+    minScale?: number;
+    maxScale?: number;
+    renderer?: unknown;
+    drawingInfo?: {
+      renderer?: unknown;
+    };
+    layerDefinition?: {
+      minScale?: number;
+      maxScale?: number;
+      drawingInfo?: {
+        renderer?: unknown;
+      };
+    };
+    layers?: WebMapLayerJson[];
+  };
+
+  type WebMapJson = {
+    operationalLayers?: WebMapLayerJson[];
+  };
+
+  type WebMapTreeNode = {
+    key: string;
+    id: string;
+    title: string;
+    layerType: string;
+    url?: string;
+    visible: boolean;
+    minScale?: number;
+    maxScale?: number;
+    renderer?: unknown;
+    children: WebMapTreeNode[];
+  };
+
   const DEFAULT_PARQUET_FILENAME = 'CJ_EN_LSOA_2011_BFC_V3_2022.parquet';
 
   let mapElement = $state<any>();
@@ -87,7 +96,7 @@
   let status = $state('Loading ArcGIS Maps SDK components...');
   let errorMessage = $state('');
 
-  let basemap = $state('osm');
+  let basemap = $state('gray');
   let center = $state('-2.5,54');
   let zoom = $state(6);
   let autoZoom = $state(true);
@@ -96,22 +105,32 @@
   let urlParquetFiles = $state<ParquetDataSource[]>([]);
   let selectedParquetSourceIds = $state<string[]>([]);
   let parquetRenderers = $state(new Map<string, unknown>());
+  let webMapTree = $state<WebMapTreeNode[]>([]);
+  let webMapLoaded = $state(false);
 
   let loadedLayerSummaries = $state<LoadedLayerSummary[]>([]);
   let loadedLayers = $state<any[]>([]);
+  let loadedWebMapRootLayers: any[] = [];
+  let geoParquetPipeline: GeoParquetPipeline | undefined;
+  let layerVisibilityWatchHandles: any[] = [];
   let renderBenchmarks = $state<RenderBenchmark[]>([]);
   let benchmarkId = 0;
 
   let ArcGISMap: any;
-  let Extent: any;
-  let ParquetLayer: any;
-  let ParquetGeometryEncodingWkb: any;
-  let rendererJsonUtils: { fromJSON?: (json: object) => unknown } | undefined;
-  let reactiveUtils: { whenOnce?: (condition: () => boolean) => Promise<unknown> } | undefined;
-  let getParquetLayerInfo: ((urls: string[]) => Promise<any>) | undefined;
+  let GroupLayer: any;
+  let reactiveUtils:
+    | {
+        watch?: (condition: () => unknown, callback: (value: any) => void) => { remove?: () => void };
+        whenOnce?: (condition: () => boolean) => Promise<unknown>;
+      }
+    | undefined;
 
   onMount(async () => {
-    const setupDataPromise = Promise.all([loadParquetSources(), loadParquetRenderers()]);
+    const setupDataPromise = Promise.all([
+      loadParquetSources(),
+      loadParquetRenderers(),
+      loadWebMapTree()
+    ]);
 
     try {
       await Promise.all([
@@ -125,6 +144,8 @@
       const [
         mapModule,
         extentModule,
+        groupLayerModule,
+        graphicsLayerModule,
         parquetLayerModule,
         parquetGeometryEncodingWkbModule,
         rendererJsonUtilsModule,
@@ -133,6 +154,8 @@
       ] = await Promise.all([
         import('@arcgis/core/Map.js'),
         import('@arcgis/core/geometry/Extent.js'),
+        import('@arcgis/core/layers/GroupLayer.js'),
+        import('@arcgis/core/layers/GraphicsLayer.js'),
         import('@arcgis/core/layers/ParquetLayer.js'),
         import('@arcgis/core/layers/support/ParquetGeometryEncodingWkb.js'),
         import('@arcgis/core/renderers/support/jsonUtils.js'),
@@ -141,12 +164,8 @@
       ]);
 
       ArcGISMap = mapModule.default;
-      Extent = extentModule.default;
-      ParquetLayer = parquetLayerModule.default;
-      ParquetGeometryEncodingWkb = parquetGeometryEncodingWkbModule.default;
-      rendererJsonUtils = rendererJsonUtilsModule;
+      GroupLayer = groupLayerModule.default;
       reactiveUtils = reactiveUtilsModule;
-      getParquetLayerInfo = parquetUtilsModule.getParquetLayerInfo;
 
       await customElements.whenDefined('arcgis-map');
       await tick();
@@ -158,9 +177,20 @@
       await mapElement.componentOnReady();
       await mapElement.viewOnReady();
 
-      ready = true;
       await setupDataPromise;
-      status = 'Ready. Select one or more GeoParquet files or URLs and click Load GeoParquet.';
+      geoParquetPipeline = new GeoParquetPipeline(
+        {
+          ParquetLayer: parquetLayerModule.default,
+          PlaceholderLayer: graphicsLayerModule.default,
+          ParquetGeometryEncodingWkb: parquetGeometryEncodingWkbModule.default,
+          Extent: extentModule.default,
+          getParquetLayerInfo: (urls: string[]) => parquetUtilsModule.getParquetLayerInfo(urls) as Promise<any>,
+          rendererFromJson: rendererJsonUtilsModule.fromJSON
+        },
+        parquetRenderers
+      );
+      ready = true;
+      await loadParquetWebMap();
     } catch (error) {
       errorMessage = errorToString(error);
       status = 'Failed to initialise the map.';
@@ -270,9 +300,255 @@
           .filter((entry) => entry?.parquetFile && entry.renderer)
           .map((entry) => [entry.parquetFile, entry.renderer])
       );
+      geoParquetPipeline?.setRendererByParquetFile(parquetRenderers);
     } catch (error) {
       console.warn('Could not load parquet renderer JSON.', error);
     }
+  }
+
+  async function loadWebMapTree(): Promise<void> {
+    try {
+      const response = await fetch(appPath('/webmap.json'), { cache: 'no-store' });
+
+      if (!response.ok) {
+        throw new Error(`Could not read webmap.json (${response.status}).`);
+      }
+
+      webMapTree = buildWebMapTree((await response.json()) as WebMapJson);
+    } catch (error) {
+      webMapTree = [];
+      errorMessage = errorToString(error);
+      status = 'Could not read webmap.json.';
+      console.error(error);
+    }
+  }
+
+  function buildWebMapTree(webMap: WebMapJson): WebMapTreeNode[] {
+    return (webMap.operationalLayers ?? []).map((layer, index) =>
+      buildWebMapTreeNode(layer, `operationalLayers.${index}`)
+    );
+  }
+
+  function buildWebMapTreeNode(layer: WebMapLayerJson, path: string): WebMapTreeNode {
+    const rawId = layer.id ?? path;
+    const title = layer.title || layer.name || String(rawId);
+    const children = (layer.layers ?? []).map((child, index) =>
+      buildWebMapTreeNode(child, `${path}.layers.${index}`)
+    );
+
+    return {
+      key: `${path}:${String(rawId)}`,
+      id: String(rawId),
+      title,
+      layerType: layer.layerType || (children.length > 0 ? 'GroupLayer' : 'Layer'),
+      url: layer.url,
+      visible: false,
+      minScale: layer.minScale ?? layer.layerDefinition?.minScale,
+      maxScale: layer.maxScale ?? layer.layerDefinition?.maxScale,
+      renderer: rendererFromWebMapLayer(layer),
+      children
+    };
+  }
+
+  function rendererFromWebMapLayer(layer: WebMapLayerJson): unknown {
+    return layer.renderer ?? layer.drawingInfo?.renderer ?? layer.layerDefinition?.drawingInfo?.renderer;
+  }
+
+  async function loadParquetWebMap(): Promise<void> {
+    if (
+      !ready ||
+      !mapElement?.map ||
+      !GroupLayer ||
+      !geoParquetPipeline
+    ) {
+      status = 'Map is not ready yet.';
+      return;
+    }
+
+    loading = true;
+    errorMessage = '';
+    status = 'Loading GeoParquet web map...';
+
+    try {
+      if (webMapTree.length === 0) {
+        status = 'No web map layers found in webmap.json.';
+        webMapLoaded = false;
+        return;
+      }
+
+      if (clearExisting) {
+        removeLoadedLayers();
+      }
+
+      removeLoadedWebMapLayers();
+
+      const rootLayers: any[] = [];
+      for (const node of webMapTree) {
+        status = `Preparing web map layer: ${node.title}`;
+        const layer = await createArcgisLayerFromWebMapNode(node);
+        if (layer) {
+          rootLayers.push(layer);
+        }
+      }
+
+      mapElement.map.addMany(rootLayers);
+      loadedWebMapRootLayers = rootLayers;
+      webMapLoaded = true;
+      status = `Loaded web map tree with ${rootLayers.length} root layer${rootLayers.length === 1 ? '' : 's'}.`;
+    } catch (error) {
+      errorMessage = errorToString(error);
+      status = 'Failed to load the GeoParquet web map.';
+      console.error(error);
+    } finally {
+      loading = false;
+    }
+  }
+
+  async function createArcgisLayerFromWebMapNode(
+    node: WebMapTreeNode
+  ): Promise<any | null> {
+    if (node.children.length > 0) {
+      const groupLayer = new GroupLayer({
+        id: node.key,
+        title: node.title,
+        visible: node.visible,
+        visibilityMode: 'independent'
+      });
+
+      const childLayers: any[] = [];
+      for (const child of node.children) {
+        const layer = await createArcgisLayerFromWebMapNode(child);
+        if (layer) {
+          childLayers.push(layer);
+        }
+      }
+
+      groupLayer.layers.addMany(childLayers);
+      return groupLayer;
+    }
+
+    if (node.layerType !== 'ParquetLayer' || !node.url) {
+      return null;
+    }
+
+    const options = webMapLayerOptions(node);
+    const layer = node.visible
+      ? (await requireGeoParquetPipeline().createLayer(options)).layer
+      : requireGeoParquetPipeline().createPlaceholderLayer({ ...options, visible: false });
+
+    watchParquetLayerVisibility(layer, options);
+    return layer;
+  }
+
+  function webMapLayerOptions(node: WebMapTreeNode): GeoParquetLayerOptions {
+    return {
+      id: node.key,
+      title: node.title,
+      urls: [toAbsoluteUrl(normalizeAppAssetUrl(node.url ?? ''))],
+      minScale: node.minScale,
+      maxScale: node.maxScale,
+      visible: node.visible,
+      renderer: node.renderer
+    };
+  }
+
+  function watchParquetLayerVisibility(layer: any, options: GeoParquetLayerOptions): void {
+    const hydrateIfVisible = (visible: boolean) => {
+      if (visible && !geoParquetPipeline?.getLayerResult(layer)) {
+        void hydrateWebMapLayer(layer, options);
+      }
+    };
+
+    const handle =
+      reactiveUtils?.watch?.(() => layer.visible, hydrateIfVisible) ??
+      (typeof layer.watch === 'function' ? layer.watch('visible', hydrateIfVisible) : undefined);
+
+    if (handle?.remove) {
+      layerVisibilityWatchHandles.push(handle);
+    }
+  }
+
+  async function hydrateWebMapLayer(layer: any, options: GeoParquetLayerOptions): Promise<void> {
+    const pipeline = requireGeoParquetPipeline();
+    const shouldRestoreVisible = Boolean(layer.visible);
+
+    try {
+      layer.visible = false;
+      status = `Reading GeoParquet metadata: ${options.title}`;
+
+      if (layer.type === 'parquet') {
+        await pipeline.hydrateLayer(layer, { ...options, visible: shouldRestoreVisible });
+      } else {
+        const result = await pipeline.createLayer({ ...options, visible: shouldRestoreVisible });
+        replaceWebMapLayer(layer, result.layer);
+      }
+
+      status = `Loaded ${options.title}.`;
+    } catch (error) {
+      if (shouldRestoreVisible) {
+        layer.visible = false;
+      }
+      errorMessage = errorToString(error);
+      status = `Failed to prepare ${options.title}.`;
+      console.error(error);
+      throw error;
+    }
+  }
+
+  function replaceWebMapLayer(previousLayer: any, nextLayer: any): void {
+    const collection = previousLayer.parent?.layers ?? mapElement?.map?.layers;
+
+    if (!collection) {
+      mapElement.map.add(nextLayer);
+      return;
+    }
+
+    const layers = collection.toArray?.() ?? [];
+    const index = layers.indexOf(previousLayer);
+
+    if (index === -1) {
+      collection.add(nextLayer);
+    } else if (typeof collection.splice === 'function') {
+      collection.splice(index, 1, nextLayer);
+    } else {
+      collection.remove(previousLayer);
+      collection.add(nextLayer, index);
+    }
+
+    const rootIndex = loadedWebMapRootLayers.indexOf(previousLayer);
+    if (rootIndex !== -1) {
+      loadedWebMapRootLayers[rootIndex] = nextLayer;
+    }
+  }
+
+  function requireGeoParquetPipeline(): GeoParquetPipeline {
+    if (!geoParquetPipeline) {
+      throw new Error('GeoParquet loader is not ready.');
+    }
+
+    return geoParquetPipeline;
+  }
+
+  function removeLoadedWebMapLayers(): void {
+    for (const handle of layerVisibilityWatchHandles) {
+      try {
+        handle.remove?.();
+      } catch {
+        // Ignore stale ArcGIS handles.
+      }
+    }
+    layerVisibilityWatchHandles = [];
+
+    for (const layer of loadedWebMapRootLayers) {
+      try {
+        mapElement.map.remove(layer);
+      } catch {
+        // Ignore layers that were already removed.
+      }
+    }
+
+    loadedWebMapRootLayers = [];
+    webMapLoaded = false;
   }
 
   function resolveBasemap(value: string): string | null {
@@ -289,9 +565,7 @@
     if (
       !ready ||
       !mapElement?.map ||
-      !ParquetLayer ||
-      !ParquetGeometryEncodingWkb ||
-      !getParquetLayerInfo
+      !geoParquetPipeline
     ) {
       status = 'Map is not ready yet.';
       return;
@@ -317,45 +591,15 @@
 
       const summaries: LoadedLayerSummary[] = [];
       const extents: any[] = [];
+      const pipeline = requireGeoParquetPipeline();
 
       for (const source of selectedSources) {
         const benchmarkStart = performance.now();
         const urls = source.urls.map((url) => toAbsoluteUrl(url));
         const title = source.name;
-        const parquetFile = parquetFileNameFromUrl(urls[0]);
         status = `Reading GeoParquet metadata: ${title}`;
 
-        const layerInfo = await getParquetLayerInfo(urls);
-        const geoMetadata = readGeoParquetMetadata(layerInfo);
-        const geometryField = getWkbGeometryField(layerInfo, geoMetadata);
-        const geometryType = getArcgisGeometryType(layerInfo, geoMetadata, geometryField);
-        const spatialReference = getSpatialReference(layerInfo);
-        const fields = fieldsWithWkbGeometryField(layerInfo, geometryField);
-        const orientation = getWkbOrientation(geoMetadata, geometryField);
-
-        console.log('Parquet layerInfo', layerInfo);
-        console.log('Resolved ParquetLayer settings', {
-          title,
-          geometryField,
-          geometryType,
-          spatialReference,
-          orientation
-        });
-
-        const layer = new ParquetLayer({
-          ...layerInfo,
-          urls,
-          title,
-          fields,
-          geometryEncoding: new ParquetGeometryEncodingWkb({
-            field: geometryField,
-            ...(orientation ? { orientation } : {})
-          }),
-          geometryType,
-          spatialReference,
-          renderer: rendererForParquetFile(parquetFile, geometryType),
-          popupTemplate: popupTemplateFromFields(fields, geometryField)
-        });
+        const { layer, settings } = await pipeline.createLayer({ title, urls });
 
         mapElement.map.add(layer);
         loadedLayers = [...loadedLayers, layer];
@@ -383,7 +627,7 @@
           console.warn(`Could not count features for ${title}`, countError);
         }
 
-        const layerExtent = await getLayerExtent(layer, layerInfo, geoMetadata, spatialReference);
+        const layerExtent = await pipeline.getLayerExtent(layer, settings);
         if (layerExtent) {
           extents.push(layerExtent);
         }
@@ -391,8 +635,8 @@
         summaries.push({
           title,
           url: urls.join('\n'),
-          geometryField,
-          geometryType,
+          geometryField: settings.geometryField,
+          geometryType: settings.geometryType,
           featureCount: count
         });
       }
@@ -427,6 +671,7 @@
 
     loadedLayers = [];
     loadedLayerSummaries = [];
+    removeLoadedWebMapLayers();
   }
 
   function updateView(): void {
@@ -494,182 +739,6 @@
         }
       );
     });
-  }
-
-  function readGeoParquetMetadata(layerInfo: ParquetLayerInfo): GeoParquetMetadata | undefined {
-    try {
-      const geoMetadataText = layerInfo.file?.keyValueMetadata?.('geo');
-      return geoMetadataText ? JSON.parse(geoMetadataText) : undefined;
-    } catch (metadataError) {
-      console.warn('Could not parse GeoParquet metadata', metadataError);
-      return undefined;
-    }
-  }
-
-  function getWkbGeometryField(
-    layerInfo: ParquetLayerInfo,
-    geoMetadata: GeoParquetMetadata | undefined
-  ): string {
-    const fromGeoMetadata = geoMetadata?.primary_column;
-    if (typeof fromGeoMetadata === 'string' && fromGeoMetadata.length > 0) {
-      return fromGeoMetadata;
-    }
-
-    const fromEncoding = geometryEncodingFieldName(layerInfo.geometryEncoding);
-    if (fromEncoding) {
-      return fromEncoding;
-    }
-
-    const fieldNames = (layerInfo.fields ?? []).map((field) => field.name);
-
-    if (fieldNames.includes('Shape')) {
-      return 'Shape';
-    }
-
-    if (fieldNames.includes('geometry')) {
-      return 'geometry';
-    }
-
-    if (fieldNames.includes('geom')) {
-      return 'geom';
-    }
-
-    return 'Shape';
-  }
-
-  function getArcgisGeometryType(
-    layerInfo: ParquetLayerInfo,
-    geoMetadata: GeoParquetMetadata | undefined,
-    geometryField: string
-  ): ArcgisGeometryType {
-    if (isArcgisGeometryType(layerInfo.geometryType)) {
-      return layerInfo.geometryType;
-    }
-
-    const metadataGeometryType = geoMetadata?.columns?.[geometryField]?.geometry_types?.[0];
-
-    switch (metadataGeometryType?.toLowerCase()) {
-      case 'point':
-        return 'point';
-      case 'multipoint':
-        return 'multipoint';
-      case 'linestring':
-      case 'multilinestring':
-        return 'polyline';
-      case 'polygon':
-      case 'multipolygon':
-        return 'polygon';
-      default:
-        console.warn('Could not infer geometry type; defaulting to point.', {
-          layerInfoGeometryType: layerInfo.geometryType,
-          metadataGeometryType
-        });
-        return 'point';
-    }
-  }
-
-  function isArcgisGeometryType(value: unknown): value is ArcgisGeometryType {
-    return value === 'point' || value === 'multipoint' || value === 'polyline' || value === 'polygon';
-  }
-
-  function getSpatialReference(layerInfo: ParquetLayerInfo): unknown {
-    // If ArcGIS inferred a supported spatial reference from GeoParquet metadata, keep it.
-    if (layerInfo.spatialReference) {
-      return layerInfo.spatialReference;
-    }
-
-    // Your conversion workflow should export GeoParquet as EPSG:4326 for ArcGIS JS.
-    // This fallback only applies when the metadata does not expose an SR object.
-    return { wkid: 4326 };
-  }
-
-  function getWkbOrientation(
-    geoMetadata: GeoParquetMetadata | undefined,
-    geometryField: string
-  ): 'counter-clockwise' | undefined {
-    const orientation = geoMetadata?.columns?.[geometryField]?.orientation;
-
-    if (orientation === 'counter-clockwise' || orientation === 'counterclockwise') {
-      return 'counter-clockwise';
-    }
-
-    return undefined;
-  }
-
-  function fieldsWithWkbGeometryField(
-    layerInfo: ParquetLayerInfo,
-    geometryField: string
-  ): ParquetField[] {
-    const fields = [...(layerInfo.fields ?? [])];
-
-    if (!fields.some((field) => field.name === geometryField)) {
-      fields.push({
-        name: geometryField,
-        alias: geometryField,
-        type: 'blob'
-      });
-    }
-
-    return fields;
-  }
-
-  async function getLayerExtent(
-    layer: any,
-    layerInfo: ParquetLayerInfo,
-    geoMetadata: GeoParquetMetadata | undefined,
-    spatialReference: unknown
-  ): Promise<any | undefined> {
-    const metadataExtent = extentFromGeoMetadata(geoMetadata, spatialReference);
-    if (metadataExtent) {
-      return metadataExtent;
-    }
-
-    if (isValidExtent(layer.fullExtent)) {
-      return layer.fullExtent;
-    }
-
-    try {
-      const result = await layer.queryExtent?.();
-      return isValidExtent(result?.extent) ? result.extent : undefined;
-    } catch (extentError) {
-      console.warn(`Could not query extent for ${layer.title}`, extentError, layerInfo);
-      return undefined;
-    }
-  }
-
-  function extentFromGeoMetadata(
-    geoMetadata: GeoParquetMetadata | undefined,
-    spatialReference: unknown
-  ): any | undefined {
-    if (!Extent || !geoMetadata?.primary_column) {
-      return undefined;
-    }
-
-    const bbox = geoMetadata.columns?.[geoMetadata.primary_column]?.bbox;
-
-    if (!Array.isArray(bbox) || bbox.length < 4 || !bbox.every(Number.isFinite)) {
-      return undefined;
-    }
-
-    return new Extent({
-      xmin: bbox[0],
-      ymin: bbox[1],
-      xmax: bbox[2],
-      ymax: bbox[3],
-      spatialReference
-    });
-  }
-
-  function isValidExtent(extent: any): boolean {
-    return Boolean(
-      extent &&
-        Number.isFinite(extent.xmin) &&
-        Number.isFinite(extent.ymin) &&
-        Number.isFinite(extent.xmax) &&
-        Number.isFinite(extent.ymax) &&
-        extent.xmax > extent.xmin &&
-        extent.ymax > extent.ymin
-    );
   }
 
   function toAbsoluteUrl(value: string): string {
@@ -818,109 +887,6 @@
     return decodeURIComponent(fileName);
   }
 
-  function geometryEncodingFieldName(geometryEncoding: unknown): string | undefined {
-    if (
-      geometryEncoding &&
-      typeof geometryEncoding === 'object' &&
-      'field' in geometryEncoding &&
-      typeof geometryEncoding.field === 'string'
-    ) {
-      return geometryEncoding.field;
-    }
-
-    return undefined;
-  }
-
-  function popupTemplateFromFields(fields: ParquetField[], geometryField: string): any {
-    const fieldInfos = fields
-      .filter((field) => field.name !== geometryField)
-      .filter((field) => field.type !== 'geometry' && field.type !== 'blob')
-      .filter((field) => !field.name.endsWith('_bbox'))
-      .slice(0, 20)
-      .map((field) => ({
-        fieldName: field.name,
-        label: field.alias || field.name
-      }));
-
-    if (fieldInfos.length === 0) {
-      return {
-        title: 'GeoParquet feature',
-        content: 'No displayable attribute fields were inferred.'
-      };
-    }
-
-    return {
-      title: 'GeoParquet feature',
-      content: [
-        {
-          type: 'fields',
-          fieldInfos
-        }
-      ]
-    };
-  }
-
-  function rendererForGeometry(geometryType: ArcgisGeometryType): any {
-    if (geometryType === 'polygon') {
-      return {
-        type: 'simple',
-        symbol: {
-          type: 'simple-fill',
-          color: [0, 122, 194, 0.55],
-          outline: {
-            color: [0, 48, 84, 1],
-            width: 0.8
-          }
-        }
-      };
-    }
-
-    if (geometryType === 'polyline') {
-      return {
-        type: 'simple',
-        symbol: {
-          type: 'simple-line',
-          color: [31, 82, 130, 1],
-          width: 1.5
-        }
-      };
-    }
-
-    return {
-      type: 'simple',
-      symbol: {
-        type: 'simple-marker',
-        color: [31, 82, 130, 0.85],
-        size: geometryType === 'multipoint' ? 4 : 6,
-        outline: {
-          color: [255, 255, 255, 1],
-          width: 0.75
-        }
-      }
-    };
-  }
-
-  function rendererForParquetFile(parquetFile: string, geometryType: ArcgisGeometryType): any {
-    const mappedRenderer = null;// parquetRenderers.get(parquetFile);
-
-    if (!mappedRenderer) {
-      return rendererForGeometry(geometryType);
-    }
-
-    try {
-      const rendererJson = JSON.parse(JSON.stringify(mappedRenderer));
-
-      if (!rendererJson || typeof rendererJson !== 'object') {
-        return rendererForGeometry(geometryType);
-      }
-
-      return rendererJsonUtils?.fromJSON?.(rendererJson) ?? rendererJson;
-    } catch (rendererError) {
-      console.warn(`Could not apply mapped renderer for ${parquetFile}; using fallback.`, rendererError);
-      return rendererForGeometry(geometryType);
-    }
-  }
-
   function combineExtents(extents: any[]): any | undefined {
     if (extents.length === 0) {
       return undefined;
@@ -964,6 +930,7 @@
   <GeoParquetSidebar
     {parquetFiles}
     {urlParquetFiles}
+    {webMapLoaded}
     bind:selectedParquetSourceIds
     bind:basemap
     bind:center

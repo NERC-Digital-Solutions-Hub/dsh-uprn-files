@@ -1,17 +1,30 @@
 import { mkdir, readdir, writeFile } from 'node:fs/promises';
-import { basename, resolve } from 'node:path';
+import { basename, join, resolve } from 'node:path';
 
 const sourceDir = resolve(process.env.PARQUET_DATA_DIR ?? 'parquet-data');
 const manifestPath = resolve('static/parquet-files.json');
 
-async function readParquetFiles() {
+async function readParquetFiles(directory = sourceDir, prefix = '') {
 	try {
-		const entries = await readdir(sourceDir, { withFileTypes: true });
+		const entries = await readdir(directory, { withFileTypes: true });
+		const nestedFiles = await Promise.all(
+			entries.map(async (entry) => {
+				const relativeName = prefix ? `${prefix}/${entry.name}` : entry.name;
+				const fullPath = join(directory, entry.name);
 
-		return entries
-			.filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.parquet'))
-			.map((entry) => entry.name)
-			.sort((first, second) => first.localeCompare(second));
+				if (entry.isDirectory()) {
+					return readParquetFiles(fullPath, relativeName);
+				}
+
+				if (entry.isFile() && entry.name.toLowerCase().endsWith('.parquet')) {
+					return [relativeName];
+				}
+
+				return [];
+			})
+		);
+
+		return nestedFiles.flat().sort((first, second) => first.localeCompare(second));
 	} catch (error) {
 		if (error?.code === 'ENOENT') {
 			return [];
@@ -26,7 +39,7 @@ const manifest = {
 	source: basename(sourceDir),
 	files: files.map((name) => ({
 		name,
-		url: `/parquet-data/${encodeURIComponent(name)}`,
+		url: `/parquet-data/${name.split('/').map(encodeURIComponent).join('/')}`,
 	})),
 };
 
